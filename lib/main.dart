@@ -8,8 +8,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ColorPickerScreen(),
+    return const MaterialApp(
+      home: HomePageScreen(),
     );
   }
 }
