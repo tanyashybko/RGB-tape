@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rgb_tape/service/api_service.dart';
-import 'package:rgb_tape/api_methods/AuthService.dart';
+import 'package:rgb_tape/api_methods/auth_service.dart';
 import '../api_methods/imports_api.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
 
   @override
-  _HomePageScreenState createState() => _HomePageScreenState();
+  State<HomePageScreen> createState() => _HomePageScreenState();
 }
 
 class _HomePageScreenState extends State<HomePageScreen> {
@@ -28,9 +28,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Future<void> _initializeServices() async {
     final token = await authService.getToken();
     if (token != null) {
-      // Передаем AuthService в ColorApi
       apiService = ApiService(
-        colorApi: ColorApi(), // Передаем AuthService в ColorApi
+        colorApi: ColorApi(),
         brightnessApi: BrightnessApi(),
         effectsApi: EffectsApi(),
         loginApi: LoginApi(),
@@ -40,7 +39,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       );
     } else {
       if (kDebugMode) {
-        print('Токен отсутствует. Авторизуйтесь.');
+        print('Token is missing. Authorize.');
       }
     }
   }
@@ -135,7 +134,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       ),
       body: Center(
         child: isLoading
-            ? const CircularProgressIndicator() // Индикатор загрузки
+            ? const CircularProgressIndicator()
             : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

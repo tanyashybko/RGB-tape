@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../const.dart';
 
 class AuthService {
-  static const String baseUrl = 'http://192.168.0.137';
+  static const String apiUrl = baseUrl;
   static const String tokenKey = 'auth_token';
 
   Future<bool> login(String username, String password) async {
@@ -26,9 +27,9 @@ class AuthService {
       }
 
       if (response.statusCode == 200) {
-        final token = response.body; // Directly use the response body as the token
+        final token = response.body;
         if (token.isNotEmpty) {
-          await _saveToken(token); // Save the token
+          await _saveToken(token);
           if (kDebugMode) {
             print('Login successful. Token: $token');
           }
@@ -52,7 +53,6 @@ class AuthService {
     }
   }
 
-  // Method to fetch a protected resource
   Future<void> getProtectedResource() async {
     try {
       final token = await getToken();
@@ -86,19 +86,16 @@ class AuthService {
     }
   }
 
-  // Save the token in SharedPreferences
   Future<void> _saveToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(tokenKey, token);
   }
 
-  // Public method to get the token
   Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(tokenKey);
   }
 
-  // Logout and remove the token
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(tokenKey);

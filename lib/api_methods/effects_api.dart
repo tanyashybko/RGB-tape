@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import '../const.dart';
 
 class EffectsApi {
-  static const String baseUrl = 'http://192.168.0.137';
+  static const String apiUrl = baseUrl;
 
   Future<void> changeEffect(int effectId) async {
     final url = Uri.parse('$baseUrl/effects');
@@ -16,7 +18,9 @@ class EffectsApi {
     final response = await http.post(url, headers: headers, body: body);
 
     if (response.statusCode == 200) {
-      print('Effect applied successfully');
+      if (kDebugMode) {
+        print('Effect applied successfully');
+      }
     } else {
       throw Exception('Failed to apply effect: ${response.statusCode}');
     }

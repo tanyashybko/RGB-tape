@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../const.dart';
 
 class LoginApi {
-  static const String baseUrl = 'http://192.168.0.137';
+  static const String apiUrl = baseUrl;
 
   Future<void> login(String username, String password) async {
     try {
