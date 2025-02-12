@@ -6,7 +6,7 @@ class ApiService {
   final EffectsApi effectsApi;
   final PixelApi pixelApi;
   final ToggleApi toggleApi;
-  final StatusApi statusApi;
+  // final StatusApi statusApi;
   final LoginApi loginApi;
 
   ApiService({
@@ -15,13 +15,13 @@ class ApiService {
     required this.effectsApi,
     required this.pixelApi,
     required this.toggleApi,
-    required this.statusApi,
+    // required this.statusApi,
     required this.loginApi,
   });
 
-  Future<void> testConnection() async {
-    await statusApi.checkStatus();
-  }
+  // Future<void> testConnection() async {
+  //   await statusApi.checkStatus();
+  // }
 
   Future<void> changeBrightness(int brightnessLevel) async {
     await brightnessApi.changeBrightness(brightnessLevel);

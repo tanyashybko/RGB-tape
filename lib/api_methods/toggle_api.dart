@@ -1,28 +1,22 @@
-import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import '../const.dart';
+import 'client_api.dart';
 
 class ToggleApi {
-  static const String apiUrl = baseUrl;
+  final ClientApi apiClient;
+
+  ToggleApi({required this.apiClient});
 
   Future<void> togglePower(int state) async {
-    final url = Uri.parse('$baseUrl/toggle');
-    final headers = {
-      'Content-Type': 'text/plain',
-    };
-    final body = jsonEncode({
-      'state': state.toString(),
-    });
-
-    final response = await http.post(url, headers: headers, body: body);
-
-    if (response.statusCode == 200) {
+    try {
+      await apiClient.postRaw('/toggle', state.toString());
       if (kDebugMode) {
         print('Power toggled successfully');
       }
-    } else {
-      throw Exception('Failed to toggle power: ${response.statusCode}');
+    } catch (e) {
+      if (kDebugMode) {
+        print('Failed to toggle power: $e');
+      }
+      throw Exception('Failed to toggle power');
     }
   }
 }

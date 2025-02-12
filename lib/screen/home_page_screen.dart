@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rgb_tape/service/api_service.dart';
 import 'package:rgb_tape/api_methods/auth_service.dart';
+import '../api_methods/client_api.dart';
 import '../api_methods/imports_api.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -13,7 +14,8 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
   late final ApiService apiService;
-  final AuthService authService = AuthService();
+  late final ClientApi clientApi;
+  late final AuthService authService;
 
   bool isLoading = false;
   bool isLoggedIn = false;
@@ -21,21 +23,22 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   void initState() {
     super.initState();
+    clientApi = ClientApi();
+    authService = AuthService(apiClient: clientApi);
     _initializeServices();
-    _checkAuthStatus();
   }
 
   Future<void> _initializeServices() async {
     final token = await authService.getToken();
+
     if (token != null) {
       apiService = ApiService(
-        colorApi: ColorApi(),
-        brightnessApi: BrightnessApi(),
-        effectsApi: EffectsApi(),
-        loginApi: LoginApi(),
-        statusApi: StatusApi(),
-        toggleApi: ToggleApi(),
-        pixelApi: PixelApi(),
+        colorApi: ColorApi(apiClient: clientApi),
+        brightnessApi: BrightnessApi(apiClient: clientApi),
+        effectsApi: EffectsApi(apiClient: clientApi),
+        loginApi: LoginApi(apiClient: clientApi),
+        toggleApi: ToggleApi(apiClient: clientApi),
+        pixelApi: PixelApi(apiClient: clientApi),
       );
     } else {
       if (kDebugMode) {
@@ -43,28 +46,27 @@ class _HomePageScreenState extends State<HomePageScreen> {
       }
     }
   }
-
-  Future<void> _checkAuthStatus() async {
-    final token = await authService.getToken();
-    if (token != null) {
-      try {
-        await apiService.testConnection();
-        setState(() {
-          isLoggedIn = true;
-        });
-      } catch (e) {
-        setState(() {
-          isLoggedIn = false;
-        });
-        await authService.logout();
-        _showMessage('Session expired, please log in again.', isError: true);
-      }
-    } else {
-      setState(() {
-        isLoggedIn = false;
-      });
-    }
-  }
+  // Future<void> _checkAuthStatus() async {
+  //   final token = await authService.getToken();
+  //   if (token != null) {
+  //     try {
+  //       await apiService.testConnection();
+  //       setState(() {
+  //         isLoggedIn = true;
+  //       });
+  //     } catch (e) {
+  //       setState(() {
+  //         isLoggedIn = false;
+  //       });
+  //       await authService.logout();
+  //       _showMessage('Session expired, please log in again.', isError: true);
+  //     }
+  //   } else {
+  //     setState(() {
+  //       isLoggedIn = false;
+  //     });
+  //   }
+  // }
 
   void _handleButtonPress(Future<void> Function() apiCall) async {
     setState(() {
