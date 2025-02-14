@@ -14,13 +14,14 @@ class ClientApi {
     };
 
     final response = await http.post(url, headers: headers, body: jsonEncode(data));
+    String responseBody = utf8.decoder.convert(response.bodyBytes);
 
     if (kDebugMode) {
-      print('POST $endpoint - Status: ${response.statusCode}, Body: ${response.body}');
+      print('POST $endpoint - Status: ${response.statusCode}, Body: $responseBody');
     }
 
     if (response.statusCode == 200) {
-      return response.body;
+      return responseBody;
     } else {
       throw Exception('Request failed with status: ${response.statusCode}');
     }
@@ -33,13 +34,14 @@ class ClientApi {
     };
 
     final response = await http.get(url, headers: headers);
+    String responseBody = utf8.decoder.convert(response.bodyBytes);
 
     if (kDebugMode) {
-      print('GET $endpoint - Status: ${response.statusCode}, Body: ${response.body}');
+      print('GET $endpoint - Status: ${response.statusCode}, Body: $responseBody');
     }
 
     if (response.statusCode == 200) {
-      return response.body;
+      return responseBody;
     } else {
       throw Exception('Request failed with status: ${response.statusCode}');
     }
@@ -52,9 +54,10 @@ class ClientApi {
     };
 
     final response = await http.post(url, headers: headers, body: rawData);
+    String responseBody = utf8.decoder.convert(response.bodyBytes);
 
     if (kDebugMode) {
-      print('POST $endpoint - Status: ${response.statusCode}, Body: ${response.body}');
+      print('POST $endpoint - Status: ${response.statusCode}, Body: $responseBody');
     }
 
     if (response.statusCode != 200) {

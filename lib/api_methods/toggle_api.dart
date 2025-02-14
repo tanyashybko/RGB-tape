@@ -8,7 +8,10 @@ class ToggleApi {
 
   Future<void> togglePower(int state) async {
     try {
-      await apiClient.postRaw('/toggle', state.toString());
+      // await apiClient.postRaw('/toggle', state.toString());
+      await apiClient.post('/toggle', {
+        'state': "$state"
+      });
       if (kDebugMode) {
         print('Power toggled successfully');
       }
