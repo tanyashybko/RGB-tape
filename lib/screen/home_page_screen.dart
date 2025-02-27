@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:rgb_tape/service/api_service.dart';
 import 'package:rgb_tape/api_methods/auth_service.dart';
 import '../api_methods/client_api.dart';
@@ -19,6 +20,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   bool isLoading = false;
   bool isLoggedIn = false;
+  Color selectedColor = Colors.white;
+  int selectedPixel = 0;
+  int selectedEffect = 1;
+  double brightness = 100;
+  bool isSinglePixelMode = false;
 
   @override
   void initState() {
@@ -46,27 +52,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
       }
     }
   }
-  // Future<void> _checkAuthStatus() async {
-  //   final token = await authService.getToken();
-  //   if (token != null) {
-  //     try {
-  //       await apiService.testConnection();
-  //       setState(() {
-  //         isLoggedIn = true;
-  //       });
-  //     } catch (e) {
-  //       setState(() {
-  //         isLoggedIn = false;
-  //       });
-  //       await authService.logout();
-  //       _showMessage('Session expired, please log in again.', isError: true);
-  //     }
-  //   } else {
-  //     setState(() {
-  //       isLoggedIn = false;
-  //     });
-  //   }
-  // }
 
   void _handleButtonPress(Future<void> Function() apiCall) async {
     setState(() {
@@ -121,41 +106,205 @@ class _HomePageScreenState extends State<HomePageScreen> {
     });
   }
 
-  Widget _buildButton(String label, Future<void> Function() onPressed) {
-    return ElevatedButton(
-      onPressed: () => _handleButtonPress(onPressed),
-      child: Text(label),
-    );
+  void _applyColorChanges() async {
+    if (isSinglePixelMode) {
+      await apiService.setPixelColor(selectedPixel, selectedColor.red, selectedColor.green, selectedColor.blue);
+    } else {
+      await apiService.changeColor(selectedColor.red, selectedColor.green, selectedColor.blue);
+    }
+    await apiService.changeBrightness(brightness.toInt());
+    await apiService.applyEffect(selectedEffect);
+  }
+
+  void _handleColorChange(Color color) {
+    setState(() {
+      selectedColor = color;
+      _applyColorChanges();
+    });
+  }
+
+  void _handleEffectChange(int? value) {
+    if (value != null) {
+      setState(() {
+        selectedEffect = value;
+        _applyColorChanges();
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('RGB LED Control'),
-      ),
+      backgroundColor: Colors.purple[50],
+      appBar: isLoggedIn
+          ? AppBar(
+        title: const Center(child: Text('Menu')),
+        backgroundColor: Colors.purple,
+      )
+          : null,
       body: Center(
         child: isLoading
             ? const CircularProgressIndicator()
-            : Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (!isLoggedIn)
-              _buildButton('Login', _handleLogin),
-            if (isLoggedIn) ...[
-              _buildButton('Change Color to Red',
-                      () => apiService.changeColor(255, 0, 0)),
-              _buildButton('Change Brightness to 50%',
-                      () => apiService.changeBrightness(50)),
-              _buildButton('Apply the ninth Effect',
-                      () => apiService.applyEffect(9)),
-              _buildButton('Set Pixel Color to Green',
-                      () => apiService.setPixelColor(0, 0, 255, 0)),
-              _buildButton('Toggle Power', () => apiService.togglePower(1)),
-              _buildButton('Logout', _handleLogout),
+            : SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              if (!isLoggedIn) ...[
+                _buildLoginForm(),
+              ] else ...[
+                Container(
+                  width: 240,
+                  height: 240,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.transparent,
+                  ),
+                  child: ColorPicker(
+                    pickerColor: selectedColor,
+                    onColorChanged: _handleColorChange,
+                    showLabel: false,
+                    pickerAreaHeightPercent: 0.8,
+                    enableAlpha: false,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'Color: (${selectedColor.red}, ${selectedColor.green}, ${selectedColor.blue})',
+                  style: const TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Slider(
+                  value: brightness,
+                  min: 0,
+                  max: 100,
+                  divisions: 100,
+                  label: brightness.round().toString(),
+                  onChanged: (value) {
+                    setState(() {
+                      brightness = value;
+                      _applyColorChanges();
+                    });
+                  },
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 80,
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          labelText: 'Pixel',
+                          filled: true,
+                          fillColor: Colors.white,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedPixel = int.tryParse(value) ?? 0;
+                          });
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    const Text('Single Pixel Mode'),
+                    Switch(
+                      value: isSinglePixelMode,
+                      onChanged: (value) {
+                        setState(() {
+                          isSinglePixelMode = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                DropdownButton<int>(
+                  value: selectedEffect,
+                  onChanged: _handleEffectChange,
+                  items: List.generate(10, (index) {
+                    return DropdownMenuItem(
+                      value: index,
+                      child: Text(index == 0 ? 'Off' : 'Effect $index', style: const TextStyle(color: Colors.black)),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => apiService.togglePower(1),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.green,
+                      ),
+                      child: const Text('Toggle On'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => apiService.togglePower(0),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.red,
+                      ),
+                      child: const Text('Toggle Off'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: _handleLogout,
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: const Text('Logout'),
+                ),
+              ],
             ],
-          ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildLoginForm() {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Login',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          const SizedBox(height: 20),
+          const TextField(
+            decoration: InputDecoration(
+              labelText: 'Username',
+              filled: true,
+              fillColor: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 10),
+          const TextField(
+            obscureText: true,
+            decoration: InputDecoration(
+              labelText: 'Password',
+              filled: true,
+              fillColor: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: _handleLogin,
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.white,
+              backgroundColor: Colors.blue,
+            ),
+            child: const Text('Login'),
+          ),
+        ],
       ),
     );
   }
