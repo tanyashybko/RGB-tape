@@ -22,9 +22,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
   bool isLoggedIn = false;
   Color selectedColor = Colors.white;
   int selectedPixel = 0;
-  int selectedEffect = 1;
+  int selectedEffect = 0; // Эффект по умолчанию "Off"
   double brightness = 100;
-  bool isSinglePixelMode = false;
+  final TextEditingController pixelController = TextEditingController();
+  bool isPixelValid = true; // Для отслеживания валидности пикселя
 
   @override
   void initState() {
@@ -107,11 +108,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   void _applyColorChanges() async {
-    if (isSinglePixelMode) {
-      await apiService.setPixelColor(selectedPixel, selectedColor.red, selectedColor.green, selectedColor.blue);
-    } else {
-      await apiService.changeColor(selectedColor.red, selectedColor.green, selectedColor.blue);
-    }
+    int red = selectedColor.red;
+    int green = selectedColor.green;
+    int blue = selectedColor.blue;
+
+    await apiService.changeColor(red, green, blue);
     await apiService.changeBrightness(brightness.toInt());
     await apiService.applyEffect(selectedEffect);
   }
@@ -129,6 +130,32 @@ class _HomePageScreenState extends State<HomePageScreen> {
         selectedEffect = value;
         _applyColorChanges();
       });
+    }
+  }
+
+  void _changePixelColor() async {
+    int red = selectedColor.red;
+    int green = selectedColor.green;
+    int blue = selectedColor.blue;
+
+    await apiService.setPixelColor(selectedPixel, red, green, blue);
+    _showMessage('Pixel $selectedPixel color changed to ($red, $green, $blue)');
+  }
+
+  void _validatePixelInput(String value) {
+    int? pixel = int.tryParse(value);
+    if (pixel != null && pixel >= 1 && pixel <= 22) {
+      setState(() {
+        selectedPixel = pixel;
+        isPixelValid = true; // Ввод валиден
+      });
+      _changePixelColor();
+      pixelController.clear();
+    } else {
+      setState(() {
+        isPixelValid = false; // Ввод невалиден
+      });
+      _showMessage('Please enter a pixel number between 1 and 22.', isError: true);
     }
   }
 
@@ -153,112 +180,117 @@ class _HomePageScreenState extends State<HomePageScreen> {
               if (!isLoggedIn) ...[
                 _buildLoginForm(),
               ] else ...[
-                Container(
-                  width: 240,
-                  height: 240,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.transparent,
-                  ),
-                  child: ColorPicker(
-                    pickerColor: selectedColor,
-                    onColorChanged: _handleColorChange,
-                    showLabel: false,
-                    pickerAreaHeightPercent: 0.8,
-                    enableAlpha: false,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Color: (${selectedColor.red}, ${selectedColor.green}, ${selectedColor.blue})',
-                  style: const TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                Slider(
-                  value: brightness,
-                  min: 0,
-                  max: 100,
-                  divisions: 100,
-                  label: brightness.round().toString(),
-                  onChanged: (value) {
-                    setState(() {
-                      brightness = value;
-                      _applyColorChanges();
-                    });
-                  },
-                ),
-                const SizedBox(height: 10),
-                Row(
+                Column(
                   children: [
-                    SizedBox(
-                      width: 80,
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          labelText: 'Pixel',
-                          filled: true,
-                          fillColor: Colors.white,
-                        ),
-                        onChanged: (value) {
-                          setState(() {
-                            selectedPixel = int.tryParse(value) ?? 0;
-                          });
-                        },
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black38,
+                            blurRadius: 8,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    const Text('Single Pixel Mode'),
-                    Switch(
-                      value: isSinglePixelMode,
-                      onChanged: (value) {
-                        setState(() {
-                          isSinglePixelMode = value;
-                        });
-                      },
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            child: ColorPicker(
+                              pickerColor: selectedColor,
+                              onColorChanged: _handleColorChange,
+                              showLabel: true,
+                              pickerAreaHeightPercent: 0.5,
+                              enableAlpha: false,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Selected Color: (${selectedColor.red}, ${selectedColor.green}, ${selectedColor.blue})',
+                            style: const TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 10),
+                          Slider(
+                            value: brightness,
+                            min: 0,
+                            max: 100,
+                            divisions: 100,
+                            label: brightness.round().toString(),
+                            onChanged: (value) {
+                              setState(() {
+                                brightness = value;
+                                _applyColorChanges();
+                              });
+                            },
+                          ),
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            width: 60,
+                            child: TextField(
+                              controller: pixelController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                labelText: 'Pixel',
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: isPixelValid ? Colors.grey : Colors.red,
+                                  ),
+                                ),
+                              ),
+                              onSubmitted: _validatePixelInput,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          DropdownButton<int>(
+                            value: selectedEffect,
+                            onChanged: _handleEffectChange,
+                            items: List.generate(10, (index) {
+                              return DropdownMenuItem(
+                                value: index,
+                                child: Text(index == 0 ? 'Off' : 'Effect $index', style: const TextStyle(color: Colors.black)),
+                              );
+                            }).toList(),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () => apiService.togglePower(1),
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  backgroundColor: Colors.green,
+                                ),
+                                child: const Text('Toggle On'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () => apiService.togglePower(0),
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  backgroundColor: Colors.red,
+                                ),
+                                child: const Text('Toggle Off'),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: _handleLogout,
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.blue,
+                            ),
+                            child: const Text('Logout'),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
-                ),
-                const SizedBox(height: 10),
-                DropdownButton<int>(
-                  value: selectedEffect,
-                  onChanged: _handleEffectChange,
-                  items: List.generate(10, (index) {
-                    return DropdownMenuItem(
-                      value: index,
-                      child: Text(index == 0 ? 'Off' : 'Effect $index', style: const TextStyle(color: Colors.black)),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => apiService.togglePower(1),
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.green,
-                      ),
-                      child: const Text('Toggle On'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => apiService.togglePower(0),
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.red,
-                      ),
-                      child: const Text('Toggle Off'),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: _handleLogout,
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.blue,
-                  ),
-                  child: const Text('Logout'),
                 ),
               ],
             ],
