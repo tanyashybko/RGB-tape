@@ -10,7 +10,8 @@
   "pixel": "Пиксель",
   "pixelChange": "цвет изменён на",
   "warningPixel": "Пожалуйста, введите число от 1 до 22.",
-  "appTitle": "Управление",
+  "applyPixel": "Применить цвет пикселя",
+  "mainPage": "Страница управления",
   "selectedColor": "Выбранный цвет",
   "offEffect": "Выкл",
   "effectChange": "Эффект",
@@ -19,5 +20,19 @@
   "logout": "Выход",
   "login": "Вход",
   "userName": "Имя пользователя",
-  "password": "Пароль"
+  "password": "Пароль",
+  "appTitle": "Управление светодиодной лентой",
+  "entranceError": "Ошибка входа. Проверьте логин и пароль",
+
+
+  "voiceTurnOn": "включи",
+  "voiceTurnOff": "выключи",
+  "voiceBrightness": "яркость",
+  "voiceEffect": "эффект",
+  "voiceRed": "красный",
+  "voiceGreen": "зелёный",
+  "voiceBlue": "синий",
+  "voiceYellow": "жёлтый",
+  "voiceWhite": "белый",
+  "voiceControlEnabled": "Включено голосовое управление!"
 }
