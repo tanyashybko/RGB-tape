@@ -28,10 +28,16 @@
   "voiceTurnOff": "turn off",
   "voiceBrightness": "brightness",
   "voiceEffect": "effect",
+  "voiceDisableEffect": "effect off",
+  "voicePixel": "pixel",
   "voiceRed": "red",
   "voiceGreen": "green",
   "voiceBlue": "blue",
   "voiceYellow": "yellow",
   "voiceWhite": "white",
-  "voiceControlEnabled": "Voice control enable!"
+  "voiceControl": "Voice control",
+  "voiceControlOff": "Off voice control",
+  "voiceControlEnabled": "Voice control enable!",
+  "disableVoiceControl": "Voice control disable",
+  "voiceExit": "Logout"
 }

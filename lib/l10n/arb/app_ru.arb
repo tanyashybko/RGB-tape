@@ -29,10 +29,17 @@
   "voiceTurnOff": "выключи",
   "voiceBrightness": "яркость",
   "voiceEffect": "эффект",
+  "voiceDisableEffect": "эффект выключи",
+  "voicePixel": "пиксель",
   "voiceRed": "красный",
   "voiceGreen": "зелёный",
   "voiceBlue": "синий",
   "voiceYellow": "жёлтый",
   "voiceWhite": "белый",
-  "voiceControlEnabled": "Включено голосовое управление!"
+  "voiceControl": "Управление голосом",
+  "voiceControlOff": "Выключить управление голосом",
+  "voiceControlEnabled": "Включено голосовое управление!",
+  "disableVoiceControl": "Голосовое управление выключено",
+  "voiceExit": "Выход"
+
 }

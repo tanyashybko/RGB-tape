@@ -14,7 +14,7 @@ class VoiceApi {
 
     _speech.listen(
       onResult: (result) => onResult(result.recognizedWords),
-      listenFor: const Duration(seconds: 5),
+      listenFor: const Duration(seconds: 0),
     );
     _isListening = true;
   }
