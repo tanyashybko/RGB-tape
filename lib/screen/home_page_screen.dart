@@ -1,10 +1,14 @@
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:rgb_tape/l10n/l10n.dart';
+import 'package:rgb_tape/localization/language_switcher.dart';
 import 'package:rgb_tape/service/api_service.dart';
 import 'package:rgb_tape/api_methods/auth_service.dart';
 import '../api_methods/client_api.dart';
 import '../api_methods/imports_api.dart';
+import '../storage/token_storage.dart' show TokenStorage;
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
@@ -22,34 +26,37 @@ class _HomePageScreenState extends State<HomePageScreen> {
   bool isLoggedIn = false;
   Color selectedColor = Colors.white;
   int selectedPixel = 0;
-  int selectedEffect = 0; // Эффект по умолчанию "Off"
+  int selectedEffect = 0;
   double brightness = 100;
   final TextEditingController pixelController = TextEditingController();
-  bool isPixelValid = true; // Для отслеживания валидности пикселя
+  bool isPixelValid = true;
 
   @override
   void initState() {
     super.initState();
     clientApi = ClientApi();
     authService = AuthService(apiClient: clientApi);
-    _initializeServices();
+    _initializeServices().then((_) {
+      if (isLoggedIn) {
+        apiService.togglePower(1);
+      }
+    });
   }
 
   Future<void> _initializeServices() async {
-    final token = await authService.getToken();
-
+    final token = await TokenStorage().getToken();
     if (token != null) {
       apiService = ApiService(
         colorApi: ColorApi(apiClient: clientApi),
         brightnessApi: BrightnessApi(apiClient: clientApi),
         effectsApi: EffectsApi(apiClient: clientApi),
-        loginApi: LoginApi(apiClient: clientApi),
+        loginApi: AuthService(apiClient: clientApi),
         toggleApi: ToggleApi(apiClient: clientApi),
         pixelApi: PixelApi(apiClient: clientApi),
       );
     } else {
       if (kDebugMode) {
-        print('Token is missing. Authorize.');
+        print(context.l10n.missing);
       }
     }
   }
@@ -61,12 +68,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
     try {
       await apiCall();
-      _showMessage('Operation successful!');
+      _showMessage(context.l10n.operationSuccessful);
     } catch (e) {
       if (kDebugMode) {
-        print('Error: $e');
+        print('${context.l10n.error}: $e');
       }
-      _showMessage('Failed to complete operation.', isError: true);
+      _showMessage(context.l10n.operationFailed, isError: true);
     } finally {
       setState(() {
         isLoading = false;
@@ -90,9 +97,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
         setState(() {
           isLoggedIn = true;
         });
-        _showMessage('Login successful!');
+        _showMessage(context.l10n.loginSuccessful);
+        apiService.togglePower(1);
       } else {
-        _showMessage('Login failed.', isError: true);
+        _showMessage(context.l10n.loginFailed, isError: true);
       }
     });
   }
@@ -103,7 +111,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       setState(() {
         isLoggedIn = false;
       });
-      _showMessage('Logged out successfully.');
+      _showMessage(context.l10n.logoutSuccessful);
     });
   }
 
@@ -120,8 +128,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
   void _handleColorChange(Color color) {
     setState(() {
       selectedColor = color;
-      _applyColorChanges();
     });
+
+
+    _applyColorChanges();
   }
 
   void _handleEffectChange(int? value) {
@@ -139,7 +149,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     int blue = selectedColor.blue;
 
     await apiService.setPixelColor(selectedPixel, red, green, blue);
-    _showMessage('Pixel $selectedPixel color changed to ($red, $green, $blue)');
+    _showMessage('${context.l10n.pixel} $selectedPixel ${context.l10n.pixelChange} ($red, $green, $blue)');
   }
 
   void _validatePixelInput(String value) {
@@ -147,15 +157,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
     if (pixel != null && pixel >= 1 && pixel <= 22) {
       setState(() {
         selectedPixel = pixel;
-        isPixelValid = true; // Ввод валиден
+        isPixelValid = true;
       });
       _changePixelColor();
       pixelController.clear();
     } else {
       setState(() {
-        isPixelValid = false; // Ввод невалиден
+        isPixelValid = false;
       });
-      _showMessage('Please enter a pixel number between 1 and 22.', isError: true);
+      _showMessage(context.l10n.warningPixel, isError: true);
     }
   }
 
@@ -165,8 +175,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
       backgroundColor: Colors.purple[50],
       appBar: isLoggedIn
           ? AppBar(
-        title: const Center(child: Text('Menu')),
+        title: Center(child: Text(context.l10n.appTitle)),
         backgroundColor: Colors.purple,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: LanguageSwitcher(),
+          ),
+        ],
       )
           : null,
       body: Center(
@@ -209,7 +225,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            'Selected Color: (${selectedColor.red}, ${selectedColor.green}, ${selectedColor.blue})',
+                            '${context.l10n.selectedColor}: (${selectedColor.red}, ${selectedColor.green}, ${selectedColor.blue})',
                             style: const TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 10),
@@ -233,7 +249,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               controller: pixelController,
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
-                                labelText: 'Pixel',
+                                labelText: context.l10n.pixel,
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
@@ -252,7 +268,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             items: List.generate(10, (index) {
                               return DropdownMenuItem(
                                 value: index,
-                                child: Text(index == 0 ? 'Off' : 'Effect $index', style: const TextStyle(color: Colors.black)),
+                                child: Text(index == 0 ? context.l10n.offEffect : '${context.l10n.effectChange} $index', style: const TextStyle(color: Colors.black)),
                               );
                             }).toList(),
                           ),
@@ -266,7 +282,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   foregroundColor: Colors.white,
                                   backgroundColor: Colors.green,
                                 ),
-                                child: const Text('Toggle On'),
+                                child: Text(context.l10n.toggleOn),
                               ),
                               ElevatedButton(
                                 onPressed: () => apiService.togglePower(0),
@@ -274,7 +290,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   foregroundColor: Colors.white,
                                   backgroundColor: Colors.red,
                                 ),
-                                child: const Text('Toggle Off'),
+                                child: Text(context.l10n.toggleOff),
                               ),
                             ],
                           ),
@@ -285,7 +301,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               foregroundColor: Colors.white,
                               backgroundColor: Colors.blue,
                             ),
-                            child: const Text('Logout'),
+                            child: Text(context.l10n.logout),
                           ),
                         ],
                       ),
@@ -301,43 +317,52 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   Widget _buildLoginForm() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'Login',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+    return Stack(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                context.l10n.login,
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: context.l10n.userName,
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: context.l10n.password,
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: _handleLogin,
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue,
+                ),
+                child: Text(context.l10n.login),
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
-          const TextField(
-            decoration: InputDecoration(
-              labelText: 'Username',
-              filled: true,
-              fillColor: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 10),
-          const TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: 'Password',
-              filled: true,
-              fillColor: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: _handleLogin,
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.blue,
-            ),
-            child: const Text('Login'),
-          ),
-        ],
-      ),
+        ),
+        const Positioned(
+          right: 10,
+          top: 10,
+          child: LanguageSwitcher(),
+        ),
+      ],
     );
   }
 }

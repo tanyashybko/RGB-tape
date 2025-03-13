@@ -1,3 +1,5 @@
+import 'package:rgb_tape/api_methods/auth_service.dart';
+
 import '../api_methods/imports_api.dart';
 
 class ApiService {
@@ -7,7 +9,7 @@ class ApiService {
   final PixelApi pixelApi;
   final ToggleApi toggleApi;
   // final StatusApi statusApi;
-  final LoginApi loginApi;
+  final AuthService loginApi;
 
   ApiService({
     required this.brightnessApi,

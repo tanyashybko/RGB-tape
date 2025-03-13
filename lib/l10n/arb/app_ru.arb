@@ -1,0 +1,23 @@
+{
+  "@@locale": "ru",
+  "missing": "Отсутсвует токен. Пожалуйста, авторизируйтесь.",
+  "operationSuccessful": "Операция завершена успешно!",
+  "error": "Ошибка",
+  "operationFailed": "Не удалось завершить операцию.",
+  "loginSuccessful": "Вы успешно вошли в систему!",
+  "loginFailed": "Не удалось войти.",
+  "logoutSuccessful": "Вы успешно вышли из системы.",
+  "pixel": "Пиксель",
+  "pixelChange": "цвет изменён на",
+  "warningPixel": "Пожалуйста, введите число от 1 до 22.",
+  "appTitle": "Управление",
+  "selectedColor": "Выбранный цвет",
+  "offEffect": "Выкл",
+  "effectChange": "Эффект",
+  "toggleOn": "Включить",
+  "toggleOff": "Выключить",
+  "logout": "Выход",
+  "login": "Вход",
+  "userName": "Имя пользователя",
+  "password": "Пароль"
+}

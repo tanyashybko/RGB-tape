@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "missing": "Token is missing. Authorize.",
+  "operationSuccessful": "Operation successful!",
+  "error": "Error",
+  "operationFailed": "Failed to complete operation.",
+  "loginSuccessful": "Login successful!",
+  "loginFailed": "Login failed.",
+  "logoutSuccessful": "Logged out successfully.",
+  "pixel": "Pixel",
+  "pixelChange": "color changed to",
+  "warningPixel": "Please enter a pixel number between 1 and 22.",
+  "appTitle": "Menu",
+  "selectedColor": "Selected Color",
+  "offEffect": "Off",
+  "effectChange": "Effect",
+  "toggleOn": "Toggle On",
+  "toggleOff": "Toggle Off",
+  "logout": "Logout",
+  "login": "Login",
+  "userName": "Username",
+  "password": "Password"
+}

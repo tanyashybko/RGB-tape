@@ -1,11 +1,10 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/foundation.dart';
-
+import '../storage/token_storage.dart';
 import 'client_api.dart';
 
 class AuthService {
   final ClientApi apiClient;
-  static const String tokenKey = 'auth_token';
+  final TokenStorage tokenStorage = TokenStorage();
 
   AuthService({required this.apiClient});
 
@@ -17,9 +16,8 @@ class AuthService {
       });
 
       final token = response;
-
       if (token != null && token.isNotEmpty) {
-        await _saveToken(token);
+        await tokenStorage.saveToken(token);
         if (kDebugMode) {
           print('Login successful. Token: $token');
         }
@@ -40,8 +38,7 @@ class AuthService {
 
   Future<void> getProtectedResource() async {
     try {
-      final token = await getToken();
-
+      final token = await tokenStorage.getToken();
       if (token == null) {
         throw Exception('No token found. Please login.');
       }
@@ -57,19 +54,8 @@ class AuthService {
     }
   }
 
-  Future<void> _saveToken(String token) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(tokenKey, token);
-  }
-
-  Future<String?> getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(tokenKey);
-  }
-
   Future<void> logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(tokenKey);
+    await tokenStorage.removeToken();
     if (kDebugMode) {
       print('Logged out successfully.');
     }
