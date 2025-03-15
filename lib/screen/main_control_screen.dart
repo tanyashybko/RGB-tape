@@ -238,8 +238,14 @@ class _MainControlScreenState extends State<MainControlScreen> {
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
-                    onPressed: isVoiceControlEnabled ? _disableVoiceControl : _enableVoiceControl,
-                    child: Text(isVoiceControlEnabled ? context.l10n.disableVoiceControl : context.l10n.voiceControlEnabled),
+                    onPressed: () {
+                      if (voiceCommandHandler.isListening) {
+                        voiceCommandHandler.stopListening();
+                      } else {
+                        voiceCommandHandler.startListening(context);
+                      }
+                    },
+                    child: Text(voiceCommandHandler.isListening ? context.l10n.voiceControlOff : context.l10n.voiceControl),
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(

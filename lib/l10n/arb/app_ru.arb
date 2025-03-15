@@ -36,10 +36,21 @@
   "voiceBlue": "синий",
   "voiceYellow": "жёлтый",
   "voiceWhite": "белый",
-  "voiceControl": "Управление голосом",
-  "voiceControlOff": "Выключить управление голосом",
+  "voiceControl": "Начать слушать",
+  "voiceControlOff": "Закончить слушать",
   "voiceControlEnabled": "Включено голосовое управление!",
   "disableVoiceControl": "Голосовое управление выключено",
-  "voiceExit": "Выход"
+  "voiceExit": "Выход",
+
+    "numZero": "ноль",
+    "numOne": "один",
+    "numTwo": "два",
+    "numThree": "три",
+    "numFour": "четыре",
+    "numFive": "пять",
+    "numSix": "шесть",
+    "numSeven": "семь",
+    "numEight": "восьмой",
+    "numNine": "девять"
 
 }

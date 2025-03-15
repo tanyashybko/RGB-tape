@@ -111,10 +111,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get voiceWhite => 'белый';
 
   @override
-  String get voiceControl => 'Управление голосом';
+  String get voiceControl => 'Начать слушать';
 
   @override
-  String get voiceControlOff => 'Выключить управление голосом';
+  String get voiceControlOff => 'Закончить слушать';
 
   @override
   String get voiceControlEnabled => 'Включено голосовое управление!';
@@ -124,4 +124,34 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get voiceExit => 'Выход';
+
+  @override
+  String get numZero => 'ноль';
+
+  @override
+  String get numOne => 'один';
+
+  @override
+  String get numTwo => 'два';
+
+  @override
+  String get numThree => 'три';
+
+  @override
+  String get numFour => 'четыре';
+
+  @override
+  String get numFive => 'пять';
+
+  @override
+  String get numSix => 'шесть';
+
+  @override
+  String get numSeven => 'семь';
+
+  @override
+  String get numEight => 'восьмой';
+
+  @override
+  String get numNine => 'девять';
 }

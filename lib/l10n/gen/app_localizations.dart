@@ -302,13 +302,13 @@ abstract class AppLocalizations {
   /// No description provided for @voiceControl.
   ///
   /// In en, this message translates to:
-  /// **'Voice control'**
+  /// **'Start Listening'**
   String get voiceControl;
 
   /// No description provided for @voiceControlOff.
   ///
   /// In en, this message translates to:
-  /// **'Off voice control'**
+  /// **'Stop Listening'**
   String get voiceControlOff;
 
   /// No description provided for @voiceControlEnabled.
@@ -328,6 +328,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get voiceExit;
+
+  /// No description provided for @numZero.
+  ///
+  /// In en, this message translates to:
+  /// **'zero'**
+  String get numZero;
+
+  /// No description provided for @numOne.
+  ///
+  /// In en, this message translates to:
+  /// **'one'**
+  String get numOne;
+
+  /// No description provided for @numTwo.
+  ///
+  /// In en, this message translates to:
+  /// **'two'**
+  String get numTwo;
+
+  /// No description provided for @numThree.
+  ///
+  /// In en, this message translates to:
+  /// **'three'**
+  String get numThree;
+
+  /// No description provided for @numFour.
+  ///
+  /// In en, this message translates to:
+  /// **'four'**
+  String get numFour;
+
+  /// No description provided for @numFive.
+  ///
+  /// In en, this message translates to:
+  /// **'five'**
+  String get numFive;
+
+  /// No description provided for @numSix.
+  ///
+  /// In en, this message translates to:
+  /// **'six'**
+  String get numSix;
+
+  /// No description provided for @numSeven.
+  ///
+  /// In en, this message translates to:
+  /// **'seven'**
+  String get numSeven;
+
+  /// No description provided for @numEight.
+  ///
+  /// In en, this message translates to:
+  /// **'eight'**
+  String get numEight;
+
+  /// No description provided for @numNine.
+  ///
+  /// In en, this message translates to:
+  /// **'nine'**
+  String get numNine;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

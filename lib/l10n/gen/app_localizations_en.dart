@@ -111,10 +111,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get voiceWhite => 'white';
 
   @override
-  String get voiceControl => 'Voice control';
+  String get voiceControl => 'Start Listening';
 
   @override
-  String get voiceControlOff => 'Off voice control';
+  String get voiceControlOff => 'Stop Listening';
 
   @override
   String get voiceControlEnabled => 'Voice control enable!';
@@ -124,4 +124,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get voiceExit => 'Logout';
+
+  @override
+  String get numZero => 'zero';
+
+  @override
+  String get numOne => 'one';
+
+  @override
+  String get numTwo => 'two';
+
+  @override
+  String get numThree => 'three';
+
+  @override
+  String get numFour => 'four';
+
+  @override
+  String get numFive => 'five';
+
+  @override
+  String get numSix => 'six';
+
+  @override
+  String get numSeven => 'seven';
+
+  @override
+  String get numEight => 'eight';
+
+  @override
+  String get numNine => 'nine';
 }

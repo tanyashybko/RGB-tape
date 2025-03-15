@@ -35,9 +35,20 @@
   "voiceBlue": "blue",
   "voiceYellow": "yellow",
   "voiceWhite": "white",
-  "voiceControl": "Voice control",
-  "voiceControlOff": "Off voice control",
+  "voiceControl": "Start Listening",
+  "voiceControlOff": "Stop Listening",
   "voiceControlEnabled": "Voice control enable!",
   "disableVoiceControl": "Voice control disable",
-  "voiceExit": "Logout"
+  "voiceExit": "Logout",
+
+  "numZero": "zero",
+  "numOne": "one",
+  "numTwo": "two",
+  "numThree": "three",
+  "numFour": "four",
+  "numFive": "five",
+  "numSix": "six",
+  "numSeven": "seven",
+  "numEight": "eight",
+  "numNine": "nine"
 }
