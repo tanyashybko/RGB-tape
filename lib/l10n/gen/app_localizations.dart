@@ -388,6 +388,552 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'nine'**
   String get numNine;
+
+  /// No description provided for @numTen.
+  ///
+  /// In en, this message translates to:
+  /// **'ten'**
+  String get numTen;
+
+  /// No description provided for @numEleven.
+  ///
+  /// In en, this message translates to:
+  /// **'eleven'**
+  String get numEleven;
+
+  /// No description provided for @numTwelve.
+  ///
+  /// In en, this message translates to:
+  /// **'twelve'**
+  String get numTwelve;
+
+  /// No description provided for @numThirteen.
+  ///
+  /// In en, this message translates to:
+  /// **'thirteen'**
+  String get numThirteen;
+
+  /// No description provided for @numFourteen.
+  ///
+  /// In en, this message translates to:
+  /// **'fourteen'**
+  String get numFourteen;
+
+  /// No description provided for @numFifteen.
+  ///
+  /// In en, this message translates to:
+  /// **'fifteen'**
+  String get numFifteen;
+
+  /// No description provided for @numSixteen.
+  ///
+  /// In en, this message translates to:
+  /// **'sixteen'**
+  String get numSixteen;
+
+  /// No description provided for @numSeventeen.
+  ///
+  /// In en, this message translates to:
+  /// **'seventeen'**
+  String get numSeventeen;
+
+  /// No description provided for @numEighteen.
+  ///
+  /// In en, this message translates to:
+  /// **'eighteen'**
+  String get numEighteen;
+
+  /// No description provided for @numNineteen.
+  ///
+  /// In en, this message translates to:
+  /// **'nineteen'**
+  String get numNineteen;
+
+  /// No description provided for @numTwenty.
+  ///
+  /// In en, this message translates to:
+  /// **'twenty'**
+  String get numTwenty;
+
+  /// No description provided for @numTwentyOne.
+  ///
+  /// In en, this message translates to:
+  /// **'twenty one'**
+  String get numTwentyOne;
+
+  /// No description provided for @numTwentyTwo.
+  ///
+  /// In en, this message translates to:
+  /// **'twenty two'**
+  String get numTwentyTwo;
+
+  /// No description provided for @numTwentyThree.
+  ///
+  /// In en, this message translates to:
+  /// **'twenty three'**
+  String get numTwentyThree;
+
+  /// No description provided for @numTwentyFour.
+  ///
+  /// In en, this message translates to:
+  /// **'twenty four'**
+  String get numTwentyFour;
+
+  /// No description provided for @numTwentyFive.
+  ///
+  /// In en, this message translates to:
+  /// **'twenty five'**
+  String get numTwentyFive;
+
+  /// No description provided for @numTwentySix.
+  ///
+  /// In en, this message translates to:
+  /// **'twenty six'**
+  String get numTwentySix;
+
+  /// No description provided for @numTwentySeven.
+  ///
+  /// In en, this message translates to:
+  /// **'twenty seven'**
+  String get numTwentySeven;
+
+  /// No description provided for @numTwentyEight.
+  ///
+  /// In en, this message translates to:
+  /// **'twenty eight'**
+  String get numTwentyEight;
+
+  /// No description provided for @numTwentyNine.
+  ///
+  /// In en, this message translates to:
+  /// **'twenty nine'**
+  String get numTwentyNine;
+
+  /// No description provided for @numThirty.
+  ///
+  /// In en, this message translates to:
+  /// **'thirty'**
+  String get numThirty;
+
+  /// No description provided for @numThirtyOne.
+  ///
+  /// In en, this message translates to:
+  /// **'thirty one'**
+  String get numThirtyOne;
+
+  /// No description provided for @numThirtyTwo.
+  ///
+  /// In en, this message translates to:
+  /// **'thirty two'**
+  String get numThirtyTwo;
+
+  /// No description provided for @numThirtyThree.
+  ///
+  /// In en, this message translates to:
+  /// **'thirty three'**
+  String get numThirtyThree;
+
+  /// No description provided for @numThirtyFour.
+  ///
+  /// In en, this message translates to:
+  /// **'thirty four'**
+  String get numThirtyFour;
+
+  /// No description provided for @numThirtyFive.
+  ///
+  /// In en, this message translates to:
+  /// **'thirty five'**
+  String get numThirtyFive;
+
+  /// No description provided for @numThirtySix.
+  ///
+  /// In en, this message translates to:
+  /// **'thirty six'**
+  String get numThirtySix;
+
+  /// No description provided for @numThirtySeven.
+  ///
+  /// In en, this message translates to:
+  /// **'thirty seven'**
+  String get numThirtySeven;
+
+  /// No description provided for @numThirtyEight.
+  ///
+  /// In en, this message translates to:
+  /// **'thirty eight'**
+  String get numThirtyEight;
+
+  /// No description provided for @numThirtyNine.
+  ///
+  /// In en, this message translates to:
+  /// **'thirty nine'**
+  String get numThirtyNine;
+
+  /// No description provided for @numForty.
+  ///
+  /// In en, this message translates to:
+  /// **'forty'**
+  String get numForty;
+
+  /// No description provided for @numFortyOne.
+  ///
+  /// In en, this message translates to:
+  /// **'forty one'**
+  String get numFortyOne;
+
+  /// No description provided for @numFortyTwo.
+  ///
+  /// In en, this message translates to:
+  /// **'forty two'**
+  String get numFortyTwo;
+
+  /// No description provided for @numFortyThree.
+  ///
+  /// In en, this message translates to:
+  /// **'forty three'**
+  String get numFortyThree;
+
+  /// No description provided for @numFortyFour.
+  ///
+  /// In en, this message translates to:
+  /// **'forty four'**
+  String get numFortyFour;
+
+  /// No description provided for @numFortyFive.
+  ///
+  /// In en, this message translates to:
+  /// **'forty five'**
+  String get numFortyFive;
+
+  /// No description provided for @numFortySix.
+  ///
+  /// In en, this message translates to:
+  /// **'forty six'**
+  String get numFortySix;
+
+  /// No description provided for @numFortySeven.
+  ///
+  /// In en, this message translates to:
+  /// **'forty seven'**
+  String get numFortySeven;
+
+  /// No description provided for @numFortyEight.
+  ///
+  /// In en, this message translates to:
+  /// **'forty eight'**
+  String get numFortyEight;
+
+  /// No description provided for @numFortyNine.
+  ///
+  /// In en, this message translates to:
+  /// **'forty nine'**
+  String get numFortyNine;
+
+  /// No description provided for @numFifty.
+  ///
+  /// In en, this message translates to:
+  /// **'fifty'**
+  String get numFifty;
+
+  /// No description provided for @numFiftyOne.
+  ///
+  /// In en, this message translates to:
+  /// **'fifty one'**
+  String get numFiftyOne;
+
+  /// No description provided for @numFiftyTwo.
+  ///
+  /// In en, this message translates to:
+  /// **'fifty two'**
+  String get numFiftyTwo;
+
+  /// No description provided for @numFiftyThree.
+  ///
+  /// In en, this message translates to:
+  /// **'fifty three'**
+  String get numFiftyThree;
+
+  /// No description provided for @numFiftyFour.
+  ///
+  /// In en, this message translates to:
+  /// **'fifty four'**
+  String get numFiftyFour;
+
+  /// No description provided for @numFiftyFive.
+  ///
+  /// In en, this message translates to:
+  /// **'fifty five'**
+  String get numFiftyFive;
+
+  /// No description provided for @numFiftySix.
+  ///
+  /// In en, this message translates to:
+  /// **'fifty six'**
+  String get numFiftySix;
+
+  /// No description provided for @numFiftySeven.
+  ///
+  /// In en, this message translates to:
+  /// **'fifty seven'**
+  String get numFiftySeven;
+
+  /// No description provided for @numFiftyEight.
+  ///
+  /// In en, this message translates to:
+  /// **'fifty eight'**
+  String get numFiftyEight;
+
+  /// No description provided for @numFiftyNine.
+  ///
+  /// In en, this message translates to:
+  /// **'fifty nine'**
+  String get numFiftyNine;
+
+  /// No description provided for @numSixty.
+  ///
+  /// In en, this message translates to:
+  /// **'sixty'**
+  String get numSixty;
+
+  /// No description provided for @numSixtyOne.
+  ///
+  /// In en, this message translates to:
+  /// **'sixty one'**
+  String get numSixtyOne;
+
+  /// No description provided for @numSixtyTwo.
+  ///
+  /// In en, this message translates to:
+  /// **'sixty two'**
+  String get numSixtyTwo;
+
+  /// No description provided for @numSixtyThree.
+  ///
+  /// In en, this message translates to:
+  /// **'sixty three'**
+  String get numSixtyThree;
+
+  /// No description provided for @numSixtyFour.
+  ///
+  /// In en, this message translates to:
+  /// **'sixty four'**
+  String get numSixtyFour;
+
+  /// No description provided for @numSixtyFive.
+  ///
+  /// In en, this message translates to:
+  /// **'sixty five'**
+  String get numSixtyFive;
+
+  /// No description provided for @numSixtySix.
+  ///
+  /// In en, this message translates to:
+  /// **'sixty six'**
+  String get numSixtySix;
+
+  /// No description provided for @numSixtySeven.
+  ///
+  /// In en, this message translates to:
+  /// **'sixty seven'**
+  String get numSixtySeven;
+
+  /// No description provided for @numSixtyEight.
+  ///
+  /// In en, this message translates to:
+  /// **'sixty eight'**
+  String get numSixtyEight;
+
+  /// No description provided for @numSixtyNine.
+  ///
+  /// In en, this message translates to:
+  /// **'sixty nine'**
+  String get numSixtyNine;
+
+  /// No description provided for @numSeventy.
+  ///
+  /// In en, this message translates to:
+  /// **'seventy'**
+  String get numSeventy;
+
+  /// No description provided for @numSeventyOne.
+  ///
+  /// In en, this message translates to:
+  /// **'seventy one'**
+  String get numSeventyOne;
+
+  /// No description provided for @numSeventyTwo.
+  ///
+  /// In en, this message translates to:
+  /// **'seventy two'**
+  String get numSeventyTwo;
+
+  /// No description provided for @numSeventyThree.
+  ///
+  /// In en, this message translates to:
+  /// **'seventy three'**
+  String get numSeventyThree;
+
+  /// No description provided for @numSeventyFour.
+  ///
+  /// In en, this message translates to:
+  /// **'seventy four'**
+  String get numSeventyFour;
+
+  /// No description provided for @numSeventyFive.
+  ///
+  /// In en, this message translates to:
+  /// **'seventy five'**
+  String get numSeventyFive;
+
+  /// No description provided for @numSeventySix.
+  ///
+  /// In en, this message translates to:
+  /// **'seventy six'**
+  String get numSeventySix;
+
+  /// No description provided for @numSeventySeven.
+  ///
+  /// In en, this message translates to:
+  /// **'seventy seven'**
+  String get numSeventySeven;
+
+  /// No description provided for @numSeventyEight.
+  ///
+  /// In en, this message translates to:
+  /// **'seventy eight'**
+  String get numSeventyEight;
+
+  /// No description provided for @numSeventyNine.
+  ///
+  /// In en, this message translates to:
+  /// **'seventy nine'**
+  String get numSeventyNine;
+
+  /// No description provided for @numEighty.
+  ///
+  /// In en, this message translates to:
+  /// **'eighty'**
+  String get numEighty;
+
+  /// No description provided for @numEightyOne.
+  ///
+  /// In en, this message translates to:
+  /// **'eighty one'**
+  String get numEightyOne;
+
+  /// No description provided for @numEightyTwo.
+  ///
+  /// In en, this message translates to:
+  /// **'eighty two'**
+  String get numEightyTwo;
+
+  /// No description provided for @numEightyThree.
+  ///
+  /// In en, this message translates to:
+  /// **'eighty three'**
+  String get numEightyThree;
+
+  /// No description provided for @numEightyFour.
+  ///
+  /// In en, this message translates to:
+  /// **'eighty four'**
+  String get numEightyFour;
+
+  /// No description provided for @numEightyFive.
+  ///
+  /// In en, this message translates to:
+  /// **'eighty five'**
+  String get numEightyFive;
+
+  /// No description provided for @numEightySix.
+  ///
+  /// In en, this message translates to:
+  /// **'eighty six'**
+  String get numEightySix;
+
+  /// No description provided for @numEightySeven.
+  ///
+  /// In en, this message translates to:
+  /// **'eighty seven'**
+  String get numEightySeven;
+
+  /// No description provided for @numEightyEight.
+  ///
+  /// In en, this message translates to:
+  /// **'eighty eight'**
+  String get numEightyEight;
+
+  /// No description provided for @numEightyNine.
+  ///
+  /// In en, this message translates to:
+  /// **'eighty nine'**
+  String get numEightyNine;
+
+  /// No description provided for @numNinety.
+  ///
+  /// In en, this message translates to:
+  /// **'ninety'**
+  String get numNinety;
+
+  /// No description provided for @numNinetyOne.
+  ///
+  /// In en, this message translates to:
+  /// **'ninety one'**
+  String get numNinetyOne;
+
+  /// No description provided for @numNinetyTwo.
+  ///
+  /// In en, this message translates to:
+  /// **'ninety two'**
+  String get numNinetyTwo;
+
+  /// No description provided for @numNinetyThree.
+  ///
+  /// In en, this message translates to:
+  /// **'ninety three'**
+  String get numNinetyThree;
+
+  /// No description provided for @numNinetyFour.
+  ///
+  /// In en, this message translates to:
+  /// **'ninety four'**
+  String get numNinetyFour;
+
+  /// No description provided for @numNinetyFive.
+  ///
+  /// In en, this message translates to:
+  /// **'ninety five'**
+  String get numNinetyFive;
+
+  /// No description provided for @numNinetySix.
+  ///
+  /// In en, this message translates to:
+  /// **'ninety six'**
+  String get numNinetySix;
+
+  /// No description provided for @numNinetySeven.
+  ///
+  /// In en, this message translates to:
+  /// **'ninety seven'**
+  String get numNinetySeven;
+
+  /// No description provided for @numNinetyEight.
+  ///
+  /// In en, this message translates to:
+  /// **'ninety eight'**
+  String get numNinetyEight;
+
+  /// No description provided for @numNinetyNine.
+  ///
+  /// In en, this message translates to:
+  /// **'ninety nine'**
+  String get numNinetyNine;
+
+  /// No description provided for @numOneHundred.
+  ///
+  /// In en, this message translates to:
+  /// **'one hundred'**
+  String get numOneHundred;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

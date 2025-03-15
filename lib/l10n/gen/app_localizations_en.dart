@@ -154,4 +154,277 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get numNine => 'nine';
+
+  @override
+  String get numTen => 'ten';
+
+  @override
+  String get numEleven => 'eleven';
+
+  @override
+  String get numTwelve => 'twelve';
+
+  @override
+  String get numThirteen => 'thirteen';
+
+  @override
+  String get numFourteen => 'fourteen';
+
+  @override
+  String get numFifteen => 'fifteen';
+
+  @override
+  String get numSixteen => 'sixteen';
+
+  @override
+  String get numSeventeen => 'seventeen';
+
+  @override
+  String get numEighteen => 'eighteen';
+
+  @override
+  String get numNineteen => 'nineteen';
+
+  @override
+  String get numTwenty => 'twenty';
+
+  @override
+  String get numTwentyOne => 'twenty one';
+
+  @override
+  String get numTwentyTwo => 'twenty two';
+
+  @override
+  String get numTwentyThree => 'twenty three';
+
+  @override
+  String get numTwentyFour => 'twenty four';
+
+  @override
+  String get numTwentyFive => 'twenty five';
+
+  @override
+  String get numTwentySix => 'twenty six';
+
+  @override
+  String get numTwentySeven => 'twenty seven';
+
+  @override
+  String get numTwentyEight => 'twenty eight';
+
+  @override
+  String get numTwentyNine => 'twenty nine';
+
+  @override
+  String get numThirty => 'thirty';
+
+  @override
+  String get numThirtyOne => 'thirty one';
+
+  @override
+  String get numThirtyTwo => 'thirty two';
+
+  @override
+  String get numThirtyThree => 'thirty three';
+
+  @override
+  String get numThirtyFour => 'thirty four';
+
+  @override
+  String get numThirtyFive => 'thirty five';
+
+  @override
+  String get numThirtySix => 'thirty six';
+
+  @override
+  String get numThirtySeven => 'thirty seven';
+
+  @override
+  String get numThirtyEight => 'thirty eight';
+
+  @override
+  String get numThirtyNine => 'thirty nine';
+
+  @override
+  String get numForty => 'forty';
+
+  @override
+  String get numFortyOne => 'forty one';
+
+  @override
+  String get numFortyTwo => 'forty two';
+
+  @override
+  String get numFortyThree => 'forty three';
+
+  @override
+  String get numFortyFour => 'forty four';
+
+  @override
+  String get numFortyFive => 'forty five';
+
+  @override
+  String get numFortySix => 'forty six';
+
+  @override
+  String get numFortySeven => 'forty seven';
+
+  @override
+  String get numFortyEight => 'forty eight';
+
+  @override
+  String get numFortyNine => 'forty nine';
+
+  @override
+  String get numFifty => 'fifty';
+
+  @override
+  String get numFiftyOne => 'fifty one';
+
+  @override
+  String get numFiftyTwo => 'fifty two';
+
+  @override
+  String get numFiftyThree => 'fifty three';
+
+  @override
+  String get numFiftyFour => 'fifty four';
+
+  @override
+  String get numFiftyFive => 'fifty five';
+
+  @override
+  String get numFiftySix => 'fifty six';
+
+  @override
+  String get numFiftySeven => 'fifty seven';
+
+  @override
+  String get numFiftyEight => 'fifty eight';
+
+  @override
+  String get numFiftyNine => 'fifty nine';
+
+  @override
+  String get numSixty => 'sixty';
+
+  @override
+  String get numSixtyOne => 'sixty one';
+
+  @override
+  String get numSixtyTwo => 'sixty two';
+
+  @override
+  String get numSixtyThree => 'sixty three';
+
+  @override
+  String get numSixtyFour => 'sixty four';
+
+  @override
+  String get numSixtyFive => 'sixty five';
+
+  @override
+  String get numSixtySix => 'sixty six';
+
+  @override
+  String get numSixtySeven => 'sixty seven';
+
+  @override
+  String get numSixtyEight => 'sixty eight';
+
+  @override
+  String get numSixtyNine => 'sixty nine';
+
+  @override
+  String get numSeventy => 'seventy';
+
+  @override
+  String get numSeventyOne => 'seventy one';
+
+  @override
+  String get numSeventyTwo => 'seventy two';
+
+  @override
+  String get numSeventyThree => 'seventy three';
+
+  @override
+  String get numSeventyFour => 'seventy four';
+
+  @override
+  String get numSeventyFive => 'seventy five';
+
+  @override
+  String get numSeventySix => 'seventy six';
+
+  @override
+  String get numSeventySeven => 'seventy seven';
+
+  @override
+  String get numSeventyEight => 'seventy eight';
+
+  @override
+  String get numSeventyNine => 'seventy nine';
+
+  @override
+  String get numEighty => 'eighty';
+
+  @override
+  String get numEightyOne => 'eighty one';
+
+  @override
+  String get numEightyTwo => 'eighty two';
+
+  @override
+  String get numEightyThree => 'eighty three';
+
+  @override
+  String get numEightyFour => 'eighty four';
+
+  @override
+  String get numEightyFive => 'eighty five';
+
+  @override
+  String get numEightySix => 'eighty six';
+
+  @override
+  String get numEightySeven => 'eighty seven';
+
+  @override
+  String get numEightyEight => 'eighty eight';
+
+  @override
+  String get numEightyNine => 'eighty nine';
+
+  @override
+  String get numNinety => 'ninety';
+
+  @override
+  String get numNinetyOne => 'ninety one';
+
+  @override
+  String get numNinetyTwo => 'ninety two';
+
+  @override
+  String get numNinetyThree => 'ninety three';
+
+  @override
+  String get numNinetyFour => 'ninety four';
+
+  @override
+  String get numNinetyFive => 'ninety five';
+
+  @override
+  String get numNinetySix => 'ninety six';
+
+  @override
+  String get numNinetySeven => 'ninety seven';
+
+  @override
+  String get numNinetyEight => 'ninety eight';
+
+  @override
+  String get numNinetyNine => 'ninety nine';
+
+  @override
+  String get numOneHundred => 'one hundred';
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:rgb_tape/service/api_service.dart';
 import 'package:rgb_tape/voice/voice_api.dart';
@@ -26,7 +27,6 @@ class VoiceCommandHandler {
     required this.onLogout,
   });
 
-  /// **Переключение голосового ввода**
   void toggleListening(BuildContext context) {
     if (isListening) {
       stopListening();
@@ -38,10 +38,14 @@ class VoiceCommandHandler {
   void startListening(BuildContext context) {
     isListening = true;
     onEnable();
-    print("Voice control started");
+    if (kDebugMode) {
+      print("Voice control started");
+    }
 
     voiceApi.startListening((command) {
-      print("Received voice command: $command");
+      if (kDebugMode) {
+        print("Received voice command: $command");
+      }
       handleVoiceCommand(command.toLowerCase(), context);
     });
 
@@ -54,19 +58,27 @@ class VoiceCommandHandler {
     isListening = false;
     onDisable();
     voiceApi.stopListening();
-    print("Voice control stopped");
+    if (kDebugMode) {
+      print("Voice control stopped");
+    }
   }
 
   Future<void> handleVoiceCommand(String command, BuildContext context) async {
     command = command.toLowerCase();
-    print("Handling command: $command");
+    if (kDebugMode) {
+      print("Handling command: $command");
+    }
 
     if (command == context.l10n.voiceTurnOn) {
-      print("Command recognized: Turn on");
+      if (kDebugMode) {
+        print("Command recognized: Turn on");
+      }
       apiService.togglePower(1);
       return;
     } else if (command == context.l10n.voiceTurnOff) {
-      print("Command recognized: Turn off");
+      if (kDebugMode) {
+        print("Command recognized: Turn off");
+      }
       apiService.togglePower(0);
       return;
     }
@@ -81,13 +93,14 @@ class VoiceCommandHandler {
 
     for (var entry in colorMap.entries) {
       if (command.contains(entry.key)) {
-        print("Command recognized: Change color to ${entry.key}");
+        if (kDebugMode) {
+          print("Command recognized: Change color to ${entry.key}");
+        }
         onColorChange(entry.value);
         return;
       }
     }
 
-    /// **Исправленная обработка эффекта**
     final Map<String, int> effectWords = {
       context.l10n.numOne: 1,
       context.l10n.numTwo: 2,
@@ -101,70 +114,130 @@ class VoiceCommandHandler {
       context.l10n.voiceDisableEffect: 0
     };
 
-// Проверяем, есть ли совпадение в предопределённых командах
     for (var entry in effectWords.entries) {
       if (command.contains(entry.key)) {
-        print("✅ Command recognized: Apply effect ${entry.value}");
+        if (kDebugMode) {
+          print("Command recognized: Apply effect ${entry.value}");
+        }
         onEffectChange(entry.value);
         return;
       }
     }
 
-// Если команда не распознана, выводим в лог
-    print("⚠️ Effect command not matched in '$command'");
+    if (kDebugMode) {
+      print("Effect command not matched in '$command'");
+    }
 
-    /// **Исправленная обработка яркости**
-    final brightnessMatch =
-    RegExp(r'\b' + context.l10n.voiceBrightness + r'\s*(\d+)')
-        .firstMatch(command);
-    if (brightnessMatch != null) {
-      final brightnessValue = double.tryParse(brightnessMatch.group(1) ?? '');
-      if (brightnessValue != null) {
-        print("Command recognized: Change brightness to $brightnessValue");
-        onBrightnessChange(brightnessValue);
+    final Map<String, int> brightnessWords = {
+      context.l10n.numOne: 1,
+      context.l10n.numTwo: 2,
+      context.l10n.numThree: 3,
+      context.l10n.numFour: 4,
+      context.l10n.numFive: 5,
+      context.l10n.numSix: 6,
+      context.l10n.numSeven: 7,
+      context.l10n.numEight: 8,
+      context.l10n.numNine: 9,
+      context.l10n.numTen: 10,
+      context.l10n.numEleven: 11,
+      context.l10n.numTwelve: 12,
+      context.l10n.numThirteen: 13,
+      context.l10n.numFourteen: 14,
+      context.l10n.numFifteen: 15,
+      context.l10n.numSixteen: 16,
+      context.l10n.numSeventeen: 17,
+      context.l10n.numEighteen: 18,
+      context.l10n.numNineteen: 19,
+      context.l10n.numTwenty: 20,
+      // Add all other numbers up to the highest level if needed
+      context.l10n.numFifty: 50, // Example
+    };
+
+    for (var entry in brightnessWords.entries) {
+      if (command.contains(entry.key)) {
+        if (kDebugMode) {
+          print("Command recognized: Set brightness to ${entry.value}");
+        }
+        onBrightnessChange(entry.value as double);
         return;
-      } else {
-        print("Error: Failed to parse brightness value from '$command'");
       }
-    } else {
+    }
+
+// If it didn't match the localized number words, try checking for the numeric value itself.
+    RegExp numberPattern = RegExp(r'(\d+)'); // Matches any number
+    Match? match = numberPattern.firstMatch(command);
+    if (match != null) {
+      int number = int.parse(match.group(1)!);
+      if (number >= 1 &&
+          number <= 100) { // Ensure the number is in a valid range
+        if (kDebugMode) {
+          print("Command recognized: Set brightness to $number");
+        }
+        onBrightnessChange(number as double);
+        return;
+      }
+    }
+
+    if (kDebugMode) {
       print("Brightness command not matched in '$command'");
     }
 
-    /// **Исправленная обработка пикселя**
-    final pixelMatch =
-    RegExp(r'\b' + context.l10n.voicePixel + r'\s*(\d+)\s*(\w+)')
-        .firstMatch(command);
+
+    final Map<String, Color> localizedColorMap = {
+      context.l10n.voiceRed: const Color(0xFFFF0000),
+      context.l10n.voiceBlue: const Color(0xFF0000FF),
+      context.l10n.voiceGreen: const Color(0xFF00FF00),
+      context.l10n.voiceYellow: const Color(0xFFFFFF00),
+      context.l10n.voiceWhite: const Color(0xFFFFFFFF),
+    };
+
+    final pixelMatch = RegExp(
+      r'\b' + context.l10n.voicePixel + r'\s+(\w+)\s+(\d+)\b',
+      caseSensitive: false,
+    ).firstMatch(command);
+
     if (pixelMatch != null) {
-      final pixelNumber = int.tryParse(pixelMatch.group(1) ?? '');
-      final colorName = pixelMatch.group(2) ?? '';
+      final colorName = pixelMatch.group(1)?.toLowerCase() ?? '';
+      final pixelNumber = int.tryParse(pixelMatch.group(2) ?? '');
 
       if (pixelNumber != null && pixelNumber >= 1 && pixelNumber <= 22) {
-        final selectedColor = colorMap[colorName];
+        final selectedColor = localizedColorMap[colorName];
 
         if (selectedColor != null) {
-          print("Command recognized: Change pixel $pixelNumber to $colorName");
+          if (kDebugMode) {
+            print("Command recognized: Change pixel $pixelNumber to $colorName");
+          }
+
+          // ⚡ Теперь запрос уходит на изменение цвета ПИКСЕЛЯ, а не всей ленты!
           await apiService.pixelApi.changePixelColor(
             pixelNumber,
             selectedColor.red,
             selectedColor.green,
             selectedColor.blue,
           );
+
           return;
         } else {
-          print("Error: Unknown color '$colorName' in command '$command'");
+          if (kDebugMode) {
+            print("Error: Unknown color '$colorName' in command '$command'");
+          }
         }
       } else {
-        print("Error: Invalid pixel number '$pixelNumber' in command '$command'");
+        if (kDebugMode) {
+          print("Error: Invalid pixel number '$pixelNumber' in command '$command'");
+        }
       }
-    } else {
-      print("Pixel command not matched in '$command'");
     }
 
     if (command == context.l10n.voiceExit) {
-      print("Command recognized: Logout");
+      if (kDebugMode) {
+        print("Command recognized: Logout");
+      }
       onLogout();
     } else {
-      print("Unknown command: '$command'");
+      if (kDebugMode) {
+        print("Unknown command: '$command'");
+      }
     }
   }
 }

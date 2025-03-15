@@ -154,4 +154,277 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get numNine => 'девять';
+
+  @override
+  String get numTen => 'десять';
+
+  @override
+  String get numEleven => 'одиннадцать';
+
+  @override
+  String get numTwelve => 'двенадцать';
+
+  @override
+  String get numThirteen => 'тринадцать';
+
+  @override
+  String get numFourteen => 'четырнадцать';
+
+  @override
+  String get numFifteen => 'пятнадцать';
+
+  @override
+  String get numSixteen => 'шестнадцать';
+
+  @override
+  String get numSeventeen => 'семнадцать';
+
+  @override
+  String get numEighteen => 'восемнадцать';
+
+  @override
+  String get numNineteen => 'девятнадцать';
+
+  @override
+  String get numTwenty => 'двадцать';
+
+  @override
+  String get numTwentyOne => 'двадцать один';
+
+  @override
+  String get numTwentyTwo => 'двадцать два';
+
+  @override
+  String get numTwentyThree => 'двадцать три';
+
+  @override
+  String get numTwentyFour => 'двадцать четыре';
+
+  @override
+  String get numTwentyFive => 'двадцать пять';
+
+  @override
+  String get numTwentySix => 'двадцать шесть';
+
+  @override
+  String get numTwentySeven => 'двадцать семь';
+
+  @override
+  String get numTwentyEight => 'двадцать восемь';
+
+  @override
+  String get numTwentyNine => 'двадцать девять';
+
+  @override
+  String get numThirty => 'тридцать';
+
+  @override
+  String get numThirtyOne => 'тридцать один';
+
+  @override
+  String get numThirtyTwo => 'тридцать два';
+
+  @override
+  String get numThirtyThree => 'тридцать три';
+
+  @override
+  String get numThirtyFour => 'тридцать четыре';
+
+  @override
+  String get numThirtyFive => 'тридцать пять';
+
+  @override
+  String get numThirtySix => 'тридцать шесть';
+
+  @override
+  String get numThirtySeven => 'тридцать семь';
+
+  @override
+  String get numThirtyEight => 'тридцать восемь';
+
+  @override
+  String get numThirtyNine => 'тридцать девять';
+
+  @override
+  String get numForty => 'сорок';
+
+  @override
+  String get numFortyOne => 'сорок один';
+
+  @override
+  String get numFortyTwo => 'сорок два';
+
+  @override
+  String get numFortyThree => 'сорок три';
+
+  @override
+  String get numFortyFour => 'сорок четыре';
+
+  @override
+  String get numFortyFive => 'сорок пять';
+
+  @override
+  String get numFortySix => 'сорок шесть';
+
+  @override
+  String get numFortySeven => 'сорок семь';
+
+  @override
+  String get numFortyEight => 'сорок восемь';
+
+  @override
+  String get numFortyNine => 'сорок девять';
+
+  @override
+  String get numFifty => 'пятьдесят';
+
+  @override
+  String get numFiftyOne => 'пятьдесят один';
+
+  @override
+  String get numFiftyTwo => 'пятьдесят два';
+
+  @override
+  String get numFiftyThree => 'пятьдесят три';
+
+  @override
+  String get numFiftyFour => 'пятьдесят четыре';
+
+  @override
+  String get numFiftyFive => 'пятьдесят пять';
+
+  @override
+  String get numFiftySix => 'пятьдесят шесть';
+
+  @override
+  String get numFiftySeven => 'пятьдесят семь';
+
+  @override
+  String get numFiftyEight => 'пятьдесят восемь';
+
+  @override
+  String get numFiftyNine => 'пятьдесят девять';
+
+  @override
+  String get numSixty => 'шестьдесят';
+
+  @override
+  String get numSixtyOne => 'шестьдесят один';
+
+  @override
+  String get numSixtyTwo => 'шестьдесят два';
+
+  @override
+  String get numSixtyThree => 'шестьдесят три';
+
+  @override
+  String get numSixtyFour => 'шестьдесят четыре';
+
+  @override
+  String get numSixtyFive => 'шестьдесят пять';
+
+  @override
+  String get numSixtySix => 'шестьдесят шесть';
+
+  @override
+  String get numSixtySeven => 'шестьдесят семь';
+
+  @override
+  String get numSixtyEight => 'шестьдесят восемь';
+
+  @override
+  String get numSixtyNine => 'шестьдесят девять';
+
+  @override
+  String get numSeventy => 'семьдесят';
+
+  @override
+  String get numSeventyOne => 'семьдесят один';
+
+  @override
+  String get numSeventyTwo => 'семьдесят два';
+
+  @override
+  String get numSeventyThree => 'семьдесят три';
+
+  @override
+  String get numSeventyFour => 'семьдесят четыре';
+
+  @override
+  String get numSeventyFive => 'семьдесят пять';
+
+  @override
+  String get numSeventySix => 'семьдесят шесть';
+
+  @override
+  String get numSeventySeven => 'семьдесят семь';
+
+  @override
+  String get numSeventyEight => 'семьдесят восемь';
+
+  @override
+  String get numSeventyNine => 'семьдесят девять';
+
+  @override
+  String get numEighty => 'восемьдесят';
+
+  @override
+  String get numEightyOne => 'восемьдесят один';
+
+  @override
+  String get numEightyTwo => 'восемьдесят два';
+
+  @override
+  String get numEightyThree => 'восемьдесят три';
+
+  @override
+  String get numEightyFour => 'восемьдесят четыре';
+
+  @override
+  String get numEightyFive => 'восемьдесят пять';
+
+  @override
+  String get numEightySix => 'восемьдесят шесть';
+
+  @override
+  String get numEightySeven => 'восемьдесят семь';
+
+  @override
+  String get numEightyEight => 'восемьдесят восемь';
+
+  @override
+  String get numEightyNine => 'восемьдесят девять';
+
+  @override
+  String get numNinety => 'девяносто';
+
+  @override
+  String get numNinetyOne => 'девяносто один';
+
+  @override
+  String get numNinetyTwo => 'девяносто два';
+
+  @override
+  String get numNinetyThree => 'девяносто три';
+
+  @override
+  String get numNinetyFour => 'девяносто четыре';
+
+  @override
+  String get numNinetyFive => 'девяносто пять';
+
+  @override
+  String get numNinetySix => 'девяносто шесть';
+
+  @override
+  String get numNinetySeven => 'девяносто семь';
+
+  @override
+  String get numNinetyEight => 'девяносто восемь';
+
+  @override
+  String get numNinetyNine => 'девяносто девять';
+
+  @override
+  String get numOneHundred => 'сто';
 }
