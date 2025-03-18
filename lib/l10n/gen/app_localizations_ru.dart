@@ -93,7 +93,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get voiceDisableEffect => 'эффект выключи';
 
   @override
-  String get voicePixel => 'пиксель';
+  String get voicePixel => 'лампочка';
 
   @override
   String get voiceRed => 'красный';
@@ -427,4 +427,85 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get numOneHundred => 'сто';
+
+  @override
+  String get numFirst => 'первая';
+
+  @override
+  String get numSecond => 'вторая';
+
+  @override
+  String get numThird => 'третья';
+
+  @override
+  String get numFourth => 'четвёртая';
+
+  @override
+  String get numFifth => 'пятая';
+
+  @override
+  String get numSixth => 'шестая';
+
+  @override
+  String get numSeventh => 'седьмая';
+
+  @override
+  String get numEighth => 'восьмая';
+
+  @override
+  String get numNinth => 'девятая';
+
+  @override
+  String get numTenth => 'десятая';
+
+  @override
+  String get numEleventh => 'одиннадцатая';
+
+  @override
+  String get numTwelfth => 'двенадцатая';
+
+  @override
+  String get numThirteenth => 'тринадцатая';
+
+  @override
+  String get numFourteenth => 'четырнадцатая';
+
+  @override
+  String get numFifteenth => 'пятнадцатая';
+
+  @override
+  String get numSixteenth => 'шестнадцатая';
+
+  @override
+  String get numSeventeenth => 'семнадцатая';
+
+  @override
+  String get numEighteenth => 'восемнадцатая';
+
+  @override
+  String get numNineteenth => 'девятнадцатая';
+
+  @override
+  String get numTwentieth => 'двадцатая';
+
+  @override
+  String get numTwentyFirst => 'двадцать первая';
+
+  @override
+  String get numTwentySecond => 'двадцать вторая';
+
+  @override
+  String get pixelRed => 'красная';
+
+  @override
+  String get pixelBlue => 'синяя';
+
+  @override
+  String get pixelGreen => 'зелёная';
+
+  @override
+  String get pixelYellow => 'жёлтая';
+
+  @override
+  String get pixelWhite => 'белая';
 }

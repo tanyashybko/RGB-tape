@@ -38,16 +38,23 @@ class VoiceCommandHandler {
   void startListening(BuildContext context) {
     isListening = true;
     onEnable();
-    if (kDebugMode) {
-      print("Voice control started");
-    }
 
-    voiceApi.startListening((command) {
-      if (kDebugMode) {
-        print("Received voice command: $command");
-      }
-      handleVoiceCommand(command.toLowerCase(), context);
-    });
+    if (kDebugMode) print("Voice control started");
+
+    voiceApi.startListening(
+          (command) async {
+        if (kDebugMode) print("Received voice command: $command");
+
+        stopListening();
+
+        await handleVoiceCommand(command.toLowerCase(), context);
+
+        Future.delayed(const Duration(milliseconds: 500), () {
+          if (isListening) startListening(context);
+        });
+      },
+      localeId: Localizations.localeOf(context).languageCode,
+    );
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(context.l10n.voiceControlEnabled)),
@@ -149,8 +156,86 @@ class VoiceCommandHandler {
       context.l10n.numEighteen: 18,
       context.l10n.numNineteen: 19,
       context.l10n.numTwenty: 20,
-      // Add all other numbers up to the highest level if needed
-      context.l10n.numFifty: 50, // Example
+      context.l10n.numTwentyOne: 21,
+      context.l10n.numTwentyTwo: 22,
+      context.l10n.numTwentyThree: 23,
+      context.l10n.numTwentyFour: 24,
+      context.l10n.numTwentyFive: 25,
+      context.l10n.numTwentySix: 26,
+      context.l10n.numTwentySeven: 27,
+      context.l10n.numTwentyEight: 28,
+      context.l10n.numTwentyNine: 29,
+      context.l10n.numThirty: 30,
+      context.l10n.numThirtyOne: 31,
+      context.l10n.numThirtyTwo: 32,
+      context.l10n.numThirtyThree: 33,
+      context.l10n.numThirtyFour: 34,
+      context.l10n.numThirtyFive: 35,
+      context.l10n.numThirtySix: 36,
+      context.l10n.numThirtySeven: 37,
+      context.l10n.numThirtyEight: 38,
+      context.l10n.numThirtyNine: 39,
+      context.l10n.numForty: 40,
+      context.l10n.numFortyOne: 41,
+      context.l10n.numFortyTwo: 42,
+      context.l10n.numFortyThree: 43,
+      context.l10n.numFortyFour: 44,
+      context.l10n.numFortyFive: 45,
+      context.l10n.numFortySix: 46,
+      context.l10n.numFortySeven: 47,
+      context.l10n.numFortyEight: 48,
+      context.l10n.numFortyNine: 49,
+      context.l10n.numFifty: 50,
+      context.l10n.numFiftyOne: 51,
+      context.l10n.numFiftyTwo: 52,
+      context.l10n.numFiftyThree: 53,
+      context.l10n.numFiftyFour: 54,
+      context.l10n.numFiftyFive: 55,
+      context.l10n.numFiftySix: 56,
+      context.l10n.numFiftySeven: 57,
+      context.l10n.numFiftyEight: 58,
+      context.l10n.numFiftyNine: 59,
+      context.l10n.numSixty: 60,
+      context.l10n.numSixtyOne: 61,
+      context.l10n.numSixtyTwo: 62,
+      context.l10n.numSixtyThree: 63,
+      context.l10n.numSixtyFour: 64,
+      context.l10n.numSixtyFive: 65,
+      context.l10n.numSixtySix: 66,
+      context.l10n.numSixtySeven: 67,
+      context.l10n.numSixtyEight: 68,
+      context.l10n.numSixtyNine: 69,
+      context.l10n.numSeventy: 70,
+      context.l10n.numSeventyOne: 71,
+      context.l10n.numSeventyTwo: 72,
+      context.l10n.numSeventyThree: 73,
+      context.l10n.numSeventyFour: 74,
+      context.l10n.numSeventyFive: 75,
+      context.l10n.numSeventySix: 76,
+      context.l10n.numSeventySeven: 77,
+      context.l10n.numSeventyEight: 78,
+      context.l10n.numSeventyNine: 79,
+      context.l10n.numEighty: 80,
+      context.l10n.numEightyOne: 81,
+      context.l10n.numEightyTwo: 82,
+      context.l10n.numEightyThree: 83,
+      context.l10n.numEightyFour: 84,
+      context.l10n.numEightyFive: 85,
+      context.l10n.numEightySix: 86,
+      context.l10n.numEightySeven: 87,
+      context.l10n.numEightyEight: 88,
+      context.l10n.numEightyNine: 89,
+      context.l10n.numNinety: 90,
+      context.l10n.numNinetyOne: 91,
+      context.l10n.numNinetyTwo: 92,
+      context.l10n.numNinetyThree: 93,
+      context.l10n.numNinetyFour: 94,
+      context.l10n.numNinetyFive: 95,
+      context.l10n.numNinetySix: 96,
+      context.l10n.numNinetySeven: 97,
+      context.l10n.numNinetyEight: 98,
+      context.l10n.numNinetyNine: 99,
+      context.l10n.numOneHundred: 100
     };
 
     for (var entry in brightnessWords.entries) {
@@ -163,13 +248,12 @@ class VoiceCommandHandler {
       }
     }
 
-// If it didn't match the localized number words, try checking for the numeric value itself.
-    RegExp numberPattern = RegExp(r'(\d+)'); // Matches any number
+    RegExp numberPattern = RegExp(r'(\d+)');
     Match? match = numberPattern.firstMatch(command);
     if (match != null) {
       int number = int.parse(match.group(1)!);
       if (number >= 1 &&
-          number <= 100) { // Ensure the number is in a valid range
+          number <= 100) {
         if (kDebugMode) {
           print("Command recognized: Set brightness to $number");
         }
@@ -182,33 +266,58 @@ class VoiceCommandHandler {
       print("Brightness command not matched in '$command'");
     }
 
+    final Map<String, int> numberWords = {
+      'первая': 1,
+      'вторая': 2,
+      'третья': 3,
+      'четвёртая': 4,
+      'пятая': 5,
+      'шестая': 6,
+      'седьмая': 7,
+      'восьмая': 8,
+      'девятая': 9,
+      'десятая': 10,
+      'одиннадцатая': 11,
+      'двенадцатая': 12,
+      'тринадцатая': 13,
+      'четырнадцатая': 14,
+      'пятнадцатая': 15,
+      'шестнадцатая': 16,
+      'семнадцатая': 17,
+      'восемнадцатая': 18,
+      'девятнадцатая': 19,
+      'двадцатая': 20,
+      'двадцать первая': 21,
+      'двадцать вторая': 22
+    };
 
     final Map<String, Color> localizedColorMap = {
-      context.l10n.voiceRed: const Color(0xFFFF0000),
-      context.l10n.voiceBlue: const Color(0xFF0000FF),
-      context.l10n.voiceGreen: const Color(0xFF00FF00),
-      context.l10n.voiceYellow: const Color(0xFFFFFF00),
-      context.l10n.voiceWhite: const Color(0xFFFFFFFF),
+      'красная': const Color(0xFFFF0000),
+      'синяя': const Color(0xFF0000FF),
+      'зелёная': const Color(0xFF00FF00),
+      'жёлтая': const Color(0xFFFFFF00),
+      'белая': const Color(0xFFFFFFFF),
     };
 
     final pixelMatch = RegExp(
-      r'\b' + context.l10n.voicePixel + r'\s+(\w+)\s+(\d+)\b',
+      r'\b(первая|вторая|третья|четвёртая|пятая|шестая|седьмая|восьмая|девятая|десятая|одиннадцатая|двенадцатая|тринадцатая|четырнадцатая|пятнадцатая|шестнадцатая|семнадцатая|восемнадцатая|девятнадцатая|двадцатая|двадцать первая|двадцать вторая)\s+лампочка\s+(' + localizedColorMap.keys.join('|') + r')\b',
       caseSensitive: false,
     ).firstMatch(command);
 
     if (pixelMatch != null) {
-      final colorName = pixelMatch.group(1)?.toLowerCase() ?? '';
-      final pixelNumber = int.tryParse(pixelMatch.group(2) ?? '');
+      print("✅ Pixel match found: ${pixelMatch.group(0)}");
+
+      final pixelOrdinalString = pixelMatch.group(1)?.toLowerCase() ?? '';
+      final pixelNumber = numberWords[pixelOrdinalString];
+
+      final colorName = pixelMatch.group(2)?.toLowerCase() ?? '';
 
       if (pixelNumber != null && pixelNumber >= 1 && pixelNumber <= 22) {
         final selectedColor = localizedColorMap[colorName];
 
         if (selectedColor != null) {
-          if (kDebugMode) {
-            print("Command recognized: Change pixel $pixelNumber to $colorName");
-          }
+          print("✅ Command recognized: Change LED $pixelNumber to $colorName");
 
-          // ⚡ Теперь запрос уходит на изменение цвета ПИКСЕЛЯ, а не всей ленты!
           await apiService.pixelApi.changePixelColor(
             pixelNumber,
             selectedColor.red,
@@ -217,16 +326,17 @@ class VoiceCommandHandler {
           );
 
           return;
-        } else {
-          if (kDebugMode) {
-            print("Error: Unknown color '$colorName' in command '$command'");
-          }
-        }
-      } else {
-        if (kDebugMode) {
-          print("Error: Invalid pixel number '$pixelNumber' in command '$command'");
         }
       }
+    }
+
+    void dispose() {
+      stopListening();
+      if (kDebugMode) print("VoiceCommandHandler disposed");
+    }
+
+    if (kDebugMode) {
+      print("Unknown command: '$command'");
     }
 
     if (command == context.l10n.voiceExit) {

@@ -93,7 +93,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get voiceDisableEffect => 'effect off';
 
   @override
-  String get voicePixel => 'pixel';
+  String get voicePixel => 'bulb';
 
   @override
   String get voiceRed => 'red';
@@ -427,4 +427,85 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get numOneHundred => 'one hundred';
+
+  @override
+  String get numFirst => 'first';
+
+  @override
+  String get numSecond => 'second';
+
+  @override
+  String get numThird => 'third';
+
+  @override
+  String get numFourth => 'fourth';
+
+  @override
+  String get numFifth => 'fifth';
+
+  @override
+  String get numSixth => 'sixth';
+
+  @override
+  String get numSeventh => 'seventh';
+
+  @override
+  String get numEighth => 'eighth';
+
+  @override
+  String get numNinth => 'ninth';
+
+  @override
+  String get numTenth => 'tenth';
+
+  @override
+  String get numEleventh => 'eleventh';
+
+  @override
+  String get numTwelfth => 'twelfth';
+
+  @override
+  String get numThirteenth => 'thirteenth';
+
+  @override
+  String get numFourteenth => 'fourteenth';
+
+  @override
+  String get numFifteenth => 'fifteenth';
+
+  @override
+  String get numSixteenth => 'sixteenth';
+
+  @override
+  String get numSeventeenth => 'seventeenth';
+
+  @override
+  String get numEighteenth => 'eighteenth';
+
+  @override
+  String get numNineteenth => 'nineteenth';
+
+  @override
+  String get numTwentieth => 'twentieth';
+
+  @override
+  String get numTwentyFirst => 'twenty-first';
+
+  @override
+  String get numTwentySecond => 'twenty-second';
+
+  @override
+  String get pixelRed => 'red';
+
+  @override
+  String get pixelBlue => 'blue';
+
+  @override
+  String get pixelGreen => 'green';
+
+  @override
+  String get pixelYellow => 'yellow';
+
+  @override
+  String get pixelWhite => 'white';
 }

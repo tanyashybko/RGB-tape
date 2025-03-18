@@ -266,7 +266,7 @@ abstract class AppLocalizations {
   /// No description provided for @voicePixel.
   ///
   /// In en, this message translates to:
-  /// **'pixel'**
+  /// **'bulb'**
   String get voicePixel;
 
   /// No description provided for @voiceRed.
@@ -934,6 +934,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'one hundred'**
   String get numOneHundred;
+
+  /// No description provided for @numFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'first'**
+  String get numFirst;
+
+  /// No description provided for @numSecond.
+  ///
+  /// In en, this message translates to:
+  /// **'second'**
+  String get numSecond;
+
+  /// No description provided for @numThird.
+  ///
+  /// In en, this message translates to:
+  /// **'third'**
+  String get numThird;
+
+  /// No description provided for @numFourth.
+  ///
+  /// In en, this message translates to:
+  /// **'fourth'**
+  String get numFourth;
+
+  /// No description provided for @numFifth.
+  ///
+  /// In en, this message translates to:
+  /// **'fifth'**
+  String get numFifth;
+
+  /// No description provided for @numSixth.
+  ///
+  /// In en, this message translates to:
+  /// **'sixth'**
+  String get numSixth;
+
+  /// No description provided for @numSeventh.
+  ///
+  /// In en, this message translates to:
+  /// **'seventh'**
+  String get numSeventh;
+
+  /// No description provided for @numEighth.
+  ///
+  /// In en, this message translates to:
+  /// **'eighth'**
+  String get numEighth;
+
+  /// No description provided for @numNinth.
+  ///
+  /// In en, this message translates to:
+  /// **'ninth'**
+  String get numNinth;
+
+  /// No description provided for @numTenth.
+  ///
+  /// In en, this message translates to:
+  /// **'tenth'**
+  String get numTenth;
+
+  /// No description provided for @numEleventh.
+  ///
+  /// In en, this message translates to:
+  /// **'eleventh'**
+  String get numEleventh;
+
+  /// No description provided for @numTwelfth.
+  ///
+  /// In en, this message translates to:
+  /// **'twelfth'**
+  String get numTwelfth;
+
+  /// No description provided for @numThirteenth.
+  ///
+  /// In en, this message translates to:
+  /// **'thirteenth'**
+  String get numThirteenth;
+
+  /// No description provided for @numFourteenth.
+  ///
+  /// In en, this message translates to:
+  /// **'fourteenth'**
+  String get numFourteenth;
+
+  /// No description provided for @numFifteenth.
+  ///
+  /// In en, this message translates to:
+  /// **'fifteenth'**
+  String get numFifteenth;
+
+  /// No description provided for @numSixteenth.
+  ///
+  /// In en, this message translates to:
+  /// **'sixteenth'**
+  String get numSixteenth;
+
+  /// No description provided for @numSeventeenth.
+  ///
+  /// In en, this message translates to:
+  /// **'seventeenth'**
+  String get numSeventeenth;
+
+  /// No description provided for @numEighteenth.
+  ///
+  /// In en, this message translates to:
+  /// **'eighteenth'**
+  String get numEighteenth;
+
+  /// No description provided for @numNineteenth.
+  ///
+  /// In en, this message translates to:
+  /// **'nineteenth'**
+  String get numNineteenth;
+
+  /// No description provided for @numTwentieth.
+  ///
+  /// In en, this message translates to:
+  /// **'twentieth'**
+  String get numTwentieth;
+
+  /// No description provided for @numTwentyFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'twenty-first'**
+  String get numTwentyFirst;
+
+  /// No description provided for @numTwentySecond.
+  ///
+  /// In en, this message translates to:
+  /// **'twenty-second'**
+  String get numTwentySecond;
+
+  /// No description provided for @pixelRed.
+  ///
+  /// In en, this message translates to:
+  /// **'red'**
+  String get pixelRed;
+
+  /// No description provided for @pixelBlue.
+  ///
+  /// In en, this message translates to:
+  /// **'blue'**
+  String get pixelBlue;
+
+  /// No description provided for @pixelGreen.
+  ///
+  /// In en, this message translates to:
+  /// **'green'**
+  String get pixelGreen;
+
+  /// No description provided for @pixelYellow.
+  ///
+  /// In en, this message translates to:
+  /// **'yellow'**
+  String get pixelYellow;
+
+  /// No description provided for @pixelWhite.
+  ///
+  /// In en, this message translates to:
+  /// **'white'**
+  String get pixelWhite;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
