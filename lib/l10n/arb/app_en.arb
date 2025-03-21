@@ -29,7 +29,7 @@
   "voiceBrightness": "brightness",
   "voiceEffect": "effect",
   "voiceDisableEffect": "effect off",
-  "voicePixel": "bulb",
+  "voicePixel": "pixel",
   "voiceRed": "red",
   "voiceGreen": "green",
   "voiceBlue": "blue",

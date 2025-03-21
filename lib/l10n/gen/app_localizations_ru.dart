@@ -93,7 +93,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get voiceDisableEffect => 'эффект выключи';
 
   @override
-  String get voicePixel => 'лампочка';
+  String get voicePixel => 'пиксель';
 
   @override
   String get voiceRed => 'красный';

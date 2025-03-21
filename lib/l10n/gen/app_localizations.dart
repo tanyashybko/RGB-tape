@@ -266,7 +266,7 @@ abstract class AppLocalizations {
   /// No description provided for @voicePixel.
   ///
   /// In en, this message translates to:
-  /// **'bulb'**
+  /// **'pixel'**
   String get voicePixel;
 
   /// No description provided for @voiceRed.

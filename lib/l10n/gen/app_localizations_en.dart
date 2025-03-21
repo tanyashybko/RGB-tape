@@ -93,7 +93,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get voiceDisableEffect => 'effect off';
 
   @override
-  String get voicePixel => 'bulb';
+  String get voicePixel => 'pixel';
 
   @override
   String get voiceRed => 'red';

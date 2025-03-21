@@ -61,6 +61,7 @@ class VoiceCommandHandler {
     );
   }
 
+
   void stopListening() {
     isListening = false;
     onDisable();
@@ -90,6 +91,7 @@ class VoiceCommandHandler {
       return;
     }
 
+    // Pixel color change handling
     final colorMap = {
       context.l10n.voiceRed: Colors.red,
       context.l10n.voiceGreen: Colors.green,
@@ -98,6 +100,71 @@ class VoiceCommandHandler {
       context.l10n.voiceWhite: Colors.white,
     };
 
+    final Map<String, int> numberWords = {
+      context.l10n.numFirst: 1,
+      context.l10n.numSecond: 2,
+      context.l10n.numThird: 3,
+      context.l10n.numFourth: 4,
+      context.l10n.numFifth: 5,
+      context.l10n.numSixth: 6,
+      context.l10n.numSeventh: 7,
+      context.l10n.numEighth: 8,
+      context.l10n.numNinth: 9,
+      context.l10n.numTenth: 10,
+      context.l10n.numEleventh: 11,
+      context.l10n.numTwelfth: 12,
+      context.l10n.numThirteenth: 13,
+      context.l10n.numFourteenth: 14,
+      context.l10n.numFifteenth: 15,
+      context.l10n.numSixteenth: 16,
+      context.l10n.numSeventeenth: 17,
+      context.l10n.numEighteenth: 18,
+      context.l10n.numNineteenth: 19,
+      context.l10n.numTwentieth: 20,
+      context.l10n.numTwentyFirst: 21,
+      context.l10n.numTwentySecond: 22
+    };
+
+    final pixelMatch = RegExp(
+      r'\b(первый|второй|третий|четвёртый|пятый|шестой|седьмой|восьмой|девятый|десятый|одиннадцатый|двенадцатый|тринадцатый|четырнадцатый|пятнадцатый|шестнадцатый|семнадцатый|восемнадцатый|девятнадцатый|двадцатый|двадцать первый|двадцать второй)\s+пиксель\s+(' + colorMap.keys.join('|') + r')\b',
+      caseSensitive: false,
+    ).firstMatch(command);
+
+    if (pixelMatch != null) {
+      if (kDebugMode) {
+        print("Pixel match found: ${pixelMatch.group(0)}");
+      }
+
+      final pixelOrdinalString = pixelMatch.group(1)?.toLowerCase() ?? '';
+      final pixelNumber = numberWords[pixelOrdinalString]; // преобразуем порядковое число в цифру
+
+      final colorName = pixelMatch.group(2)?.toLowerCase(); // получаем цвет
+
+      if (pixelNumber != null && pixelNumber >= 1 && pixelNumber <= 22) {
+        final selectedColor = colorMap[colorName]; // получаем цвет из маппинга
+
+        if (selectedColor != null) {
+          if (kDebugMode) {
+            print("Command recognized: Change pixel $pixelNumber to $colorName");
+          }
+
+          // Изменяем цвет для конкретного пикселя
+          await apiService.pixelApi.changePixelColor(
+            pixelNumber,
+            selectedColor.red,
+            selectedColor.green,
+            selectedColor.blue,
+          );
+          return;
+        }
+      } else {
+        if (kDebugMode) {
+          print("Invalid pixel number or color.");
+        }
+      }
+    }
+
+    // General color change logic
     for (var entry in colorMap.entries) {
       if (command.contains(entry.key)) {
         if (kDebugMode) {
@@ -107,6 +174,17 @@ class VoiceCommandHandler {
         return;
       }
     }
+
+    //
+    // for (var entry in colorMap.entries) {
+    //   if (command.contains(entry.key)) {
+    //     if (kDebugMode) {
+    //       print("Command recognized: Change color to ${entry.key}");
+    //     }
+    //     onColorChange(entry.value);
+    //     return;
+    //   }
+    // }
 
     final Map<String, int> effectWords = {
       context.l10n.numOne: 1,
@@ -266,69 +344,65 @@ class VoiceCommandHandler {
       print("Brightness command not matched in '$command'");
     }
 
-    final Map<String, int> numberWords = {
-      'первая': 1,
-      'вторая': 2,
-      'третья': 3,
-      'четвёртая': 4,
-      'пятая': 5,
-      'шестая': 6,
-      'седьмая': 7,
-      'восьмая': 8,
-      'девятая': 9,
-      'десятая': 10,
-      'одиннадцатая': 11,
-      'двенадцатая': 12,
-      'тринадцатая': 13,
-      'четырнадцатая': 14,
-      'пятнадцатая': 15,
-      'шестнадцатая': 16,
-      'семнадцатая': 17,
-      'восемнадцатая': 18,
-      'девятнадцатая': 19,
-      'двадцатая': 20,
-      'двадцать первая': 21,
-      'двадцать вторая': 22
-    };
-
-    final Map<String, Color> localizedColorMap = {
-      'красная': const Color(0xFFFF0000),
-      'синяя': const Color(0xFF0000FF),
-      'зелёная': const Color(0xFF00FF00),
-      'жёлтая': const Color(0xFFFFFF00),
-      'белая': const Color(0xFFFFFFFF),
-    };
-
-    final pixelMatch = RegExp(
-      r'\b(первая|вторая|третья|четвёртая|пятая|шестая|седьмая|восьмая|девятая|десятая|одиннадцатая|двенадцатая|тринадцатая|четырнадцатая|пятнадцатая|шестнадцатая|семнадцатая|восемнадцатая|девятнадцатая|двадцатая|двадцать первая|двадцать вторая)\s+лампочка\s+(' + localizedColorMap.keys.join('|') + r')\b',
-      caseSensitive: false,
-    ).firstMatch(command);
-
-    if (pixelMatch != null) {
-      print("✅ Pixel match found: ${pixelMatch.group(0)}");
-
-      final pixelOrdinalString = pixelMatch.group(1)?.toLowerCase() ?? '';
-      final pixelNumber = numberWords[pixelOrdinalString];
-
-      final colorName = pixelMatch.group(2)?.toLowerCase() ?? '';
-
-      if (pixelNumber != null && pixelNumber >= 1 && pixelNumber <= 22) {
-        final selectedColor = localizedColorMap[colorName];
-
-        if (selectedColor != null) {
-          print("✅ Command recognized: Change LED $pixelNumber to $colorName");
-
-          await apiService.pixelApi.changePixelColor(
-            pixelNumber,
-            selectedColor.red,
-            selectedColor.green,
-            selectedColor.blue,
-          );
-
-          return;
-        }
-      }
-    }
+    // final Map<String, int> numberWords = {
+    //   context.l10n.numFirst: 1,
+    //   context.l10n.numSecond: 2,
+    //   context.l10n.numThird: 3,
+    //   context.l10n.numFourth: 4,
+    //   context.l10n.numFifth: 5,
+    //   context.l10n.numSixth: 6,
+    //   context.l10n.numSeventh: 7,
+    //   context.l10n.numEighth: 8,
+    //   context.l10n.numNinth: 9,
+    //   context.l10n.numTenth: 10,
+    //   context.l10n.numEleventh: 11,
+    //   context.l10n.numTwelfth: 12,
+    //   context.l10n.numThirteenth: 13,
+    //   context.l10n.numFourteenth: 14,
+    //   context.l10n.numFifteenth: 15,
+    //   context.l10n.numSixteenth: 16,
+    //   context.l10n.numSeventeenth: 17,
+    //   context.l10n.numEighteenth: 18,
+    //   context.l10n.numNineteenth: 19,
+    //   context.l10n.numTwentieth: 20,
+    //   context.l10n.numTwentyFirst: 21,
+    //   context.l10n.numTwentySecond: 22
+    // };
+    //
+    // final pixelMatch = RegExp(
+    //   r'\b(первая|вторая|третья|четвёртая|пятая|шестая|седьмая|восьмая|девятая|десятая|одиннадцатая|двенадцатая|тринадцатая|четырнадцатая|пятнадцатая|шестнадцатая|семнадцатая|восемнадцатая|девятнадцатая|двадцатая|двадцать первая|двадцать вторая)\s+лампочка\s+(' + colorMap.keys.join('|') + r')\b',
+    //   caseSensitive: false,
+    // ).firstMatch(command);
+    //
+    // if (pixelMatch != null) {
+    //   if (kDebugMode) {
+    //     print("Pixel match found: ${pixelMatch.group(0)}");
+    //   }
+    //
+    //   final pixelOrdinalString = pixelMatch.group(1)?.toLowerCase() ?? '';
+    //   final pixelNumber = numberWords[pixelOrdinalString];
+    //
+    //   final colorName = pixelMatch.group(2)?.toLowerCase() ?? '';
+    //
+    //   if (pixelNumber != null && pixelNumber >= 1 && pixelNumber <= 22) {
+    //     final selectedColor = colorMap[colorName];
+    //
+    //     if (selectedColor != null) {
+    //       if (kDebugMode) {
+    //         print("Command recognized: Change LED $pixelNumber to $colorName");
+    //       }
+    //
+    //       await apiService.pixelApi.changePixelColor(
+    //         pixelNumber,
+    //         selectedColor.red,
+    //         selectedColor.green,
+    //         selectedColor.blue,
+    //       );
+    //
+    //       return;
+    //     }
+    //   }
+    // }
 
     void dispose() {
       stopListening();

@@ -27,6 +27,11 @@ class VoiceApi {
         });
       },
     );
+
+      var availableLocales = await _speech.locales();
+      for (var locale in availableLocales) {
+        print('Available locale: ${locale.localeId}');
+      }
   }
 
   void startListening(Function(String) onResult, {String localeId = 'ru_RU'}) {
