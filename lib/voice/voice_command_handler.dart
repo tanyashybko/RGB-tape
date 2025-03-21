@@ -91,7 +91,6 @@ class VoiceCommandHandler {
       return;
     }
 
-    // Pixel color change handling
     final colorMap = {
       context.l10n.voiceRed: Colors.red,
       context.l10n.voiceGreen: Colors.green,
@@ -125,55 +124,61 @@ class VoiceCommandHandler {
       context.l10n.numTwentySecond: 22
     };
 
+// Регулярное выражение для команды с пикселем
     final pixelMatch = RegExp(
-      r'\b(первый|второй|третий|четвёртый|пятый|шестой|седьмой|восьмой|девятый|десятый|одиннадцатый|двенадцатый|тринадцатый|четырнадцатый|пятнадцатый|шестнадцатый|семнадцатый|восемнадцатый|девятнадцатый|двадцатый|двадцать первый|двадцать второй)\s+пиксель\s+(' + colorMap.keys.join('|') + r')\b',
+      r'\b(первый|второй|третий|четвёртый|пятый|шестой|седьмой|восьмой|девятый|десятый|одиннадцатый|двенадцатый|тринадцатый|четырнадцатый|пятнадцатый|шестнадцатый|семнадцатый|восемнадцатый|девятнадцатый|двадцатый|двадцать первый|двадцать второй)\s+' +
+          r'(пиксель|pixel)\s+' +
+          r'(' + colorMap.keys.join('|') + r')\b',
       caseSensitive: false,
     ).firstMatch(command);
 
     if (pixelMatch != null) {
       if (kDebugMode) {
-        print("Pixel match found: ${pixelMatch.group(0)}");
+        print("✅ Pixel match found: ${pixelMatch.group(0)}");
       }
 
       final pixelOrdinalString = pixelMatch.group(1)?.toLowerCase() ?? '';
-      final pixelNumber = numberWords[pixelOrdinalString]; // преобразуем порядковое число в цифру
-
-      final colorName = pixelMatch.group(2)?.toLowerCase(); // получаем цвет
+      final pixelNumber = numberWords[pixelOrdinalString]; // Преобразуем порядковое число в цифру
+      final colorName = pixelMatch.group(3)?.toLowerCase(); // Получаем цвет
 
       if (pixelNumber != null && pixelNumber >= 1 && pixelNumber <= 22) {
-        final selectedColor = colorMap[colorName]; // получаем цвет из маппинга
+        final selectedColor = colorMap[colorName];
 
         if (selectedColor != null) {
           if (kDebugMode) {
-            print("Command recognized: Change pixel $pixelNumber to $colorName");
+            print("🎨 Command recognized: Change pixel $pixelNumber to $colorName");
+            print("📡 Sending request to /pixel");
           }
 
-          // Изменяем цвет для конкретного пикселя
+          // Отправляем запрос на изменение цвета для конкретного пикселя
           await apiService.pixelApi.changePixelColor(
             pixelNumber,
             selectedColor.red,
             selectedColor.green,
             selectedColor.blue,
           );
+
+          // Прерываем дальнейшую обработку
           return;
         }
       } else {
         if (kDebugMode) {
-          print("Invalid pixel number or color.");
+          print("❌ Invalid pixel number or color.");
         }
       }
     }
 
-    // General color change logic
+// Если команда не распознана как пиксель, продолжаем обработку как общий цвет
     for (var entry in colorMap.entries) {
       if (command.contains(entry.key)) {
         if (kDebugMode) {
-          print("Command recognized: Change color to ${entry.key}");
+          print("🟢 General color change: ${entry.key}");
         }
         onColorChange(entry.value);
         return;
       }
     }
+
 
     //
     // for (var entry in colorMap.entries) {

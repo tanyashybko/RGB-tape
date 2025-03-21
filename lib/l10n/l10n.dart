@@ -15,6 +15,8 @@ class L10n {
         return '🇺🇸';
       case 'ru':
         return '🇷🇺';
+      case 'ar':
+        return '🇦🇪';
       default:
         return '🏳️';
     }
