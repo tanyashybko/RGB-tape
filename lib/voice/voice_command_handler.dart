@@ -92,43 +92,40 @@ class VoiceCommandHandler {
     }
 
     final colorMap = {
-      context.l10n.voiceRed: Colors.red,
-      context.l10n.voiceGreen: Colors.green,
-      context.l10n.voiceBlue: Colors.blue,
-      context.l10n.voiceYellow: Colors.yellow,
-      context.l10n.voiceWhite: Colors.white,
+      context.l10n.voiceRed.toLowerCase(): Colors.red,
+      context.l10n.voiceGreen.toLowerCase(): Colors.green,
+      context.l10n.voiceBlue.toLowerCase(): Colors.blue,
+      context.l10n.voiceYellow.toLowerCase(): Colors.yellow,
+      context.l10n.voiceWhite.toLowerCase(): Colors.white,
     };
 
-    final Map<String, int> numberWords = {
-      context.l10n.numFirst: 1,
-      context.l10n.numSecond: 2,
-      context.l10n.numThird: 3,
-      context.l10n.numFourth: 4,
-      context.l10n.numFifth: 5,
-      context.l10n.numSixth: 6,
-      context.l10n.numSeventh: 7,
-      context.l10n.numEighth: 8,
-      context.l10n.numNinth: 9,
-      context.l10n.numTenth: 10,
-      context.l10n.numEleventh: 11,
-      context.l10n.numTwelfth: 12,
-      context.l10n.numThirteenth: 13,
-      context.l10n.numFourteenth: 14,
-      context.l10n.numFifteenth: 15,
-      context.l10n.numSixteenth: 16,
-      context.l10n.numSeventeenth: 17,
-      context.l10n.numEighteenth: 18,
-      context.l10n.numNineteenth: 19,
-      context.l10n.numTwentieth: 20,
-      context.l10n.numTwentyFirst: 21,
-      context.l10n.numTwentySecond: 22
+    final numberWords = {
+      context.l10n.numFirst.toLowerCase(): 1,
+      context.l10n.numSecond.toLowerCase(): 2,
+      context.l10n.numThird.toLowerCase(): 3,
+      context.l10n.numFourth.toLowerCase(): 4,
+      context.l10n.numFifth.toLowerCase(): 5,
+      context.l10n.numSixth.toLowerCase(): 6,
+      context.l10n.numSeventh.toLowerCase(): 7,
+      context.l10n.numEighth.toLowerCase(): 8,
+      context.l10n.numNinth.toLowerCase(): 9,
+      context.l10n.numTenth.toLowerCase(): 10,
+      context.l10n.numEleventh.toLowerCase(): 11,
+      context.l10n.numTwelfth.toLowerCase(): 12,
+      context.l10n.numThirteenth.toLowerCase(): 13,
+      context.l10n.numFourteenth.toLowerCase(): 14,
+      context.l10n.numFifteenth.toLowerCase(): 15,
+      context.l10n.numSixteenth.toLowerCase(): 16,
+      context.l10n.numSeventeenth.toLowerCase(): 17,
+      context.l10n.numEighteenth.toLowerCase(): 18,
+      context.l10n.numNineteenth.toLowerCase(): 19,
+      context.l10n.numTwentieth.toLowerCase(): 20,
+      context.l10n.numTwentyFirst.toLowerCase(): 21,
+      context.l10n.numTwentySecond.toLowerCase(): 22,
     };
 
-// Регулярное выражение для команды с пикселем
     final pixelMatch = RegExp(
-      r'\b(первый|второй|третий|четвёртый|пятый|шестой|седьмой|восьмой|девятый|десятый|одиннадцатый|двенадцатый|тринадцатый|четырнадцатый|пятнадцатый|шестнадцатый|семнадцатый|восемнадцатый|девятнадцатый|двадцатый|двадцать первый|двадцать второй)\s+' +
-          r'(пиксель|pixel)\s+' +
-          r'(' + colorMap.keys.join('|') + r')\b',
+      r'\b(первый|второй|третий|четвёртый|пятый|шестой|седьмой|восьмой|девятый|десятый|одиннадцатый|двенадцатый|тринадцатый|четырнадцатый|пятнадцатый|шестнадцатый|семнадцатый|восемнадцатый|девятнадцатый|двадцатый|двадцать\s*первый|двадцать\s*второй)\s*(пиксель|pixel)\s*(' + colorMap.keys.map((key) => RegExp.escape(key)).join('|') + r')\b',
       caseSensitive: false,
     ).firstMatch(command);
 
@@ -138,10 +135,17 @@ class VoiceCommandHandler {
       }
 
       final pixelOrdinalString = pixelMatch.group(1)?.toLowerCase() ?? '';
-      final pixelNumber = numberWords[pixelOrdinalString]; // Преобразуем порядковое число в цифру
-      final colorName = pixelMatch.group(3)?.toLowerCase(); // Получаем цвет
+      final pixelNumber = numberWords.entries.firstWhere(
+            (e) => e.key == pixelOrdinalString,
+        orElse: () => const MapEntry("", 0),
+      ).value;
+      final colorName = pixelMatch.group(3)?.toLowerCase();
 
-      if (pixelNumber != null && pixelNumber >= 1 && pixelNumber <= 22) {
+      if (kDebugMode) {
+        print("Detected pixel number: $pixelNumber, color: $colorName");
+      }
+
+      if (pixelNumber != 0) {
         final selectedColor = colorMap[colorName];
 
         if (selectedColor != null) {
@@ -150,7 +154,6 @@ class VoiceCommandHandler {
             print("📡 Sending request to /pixel");
           }
 
-          // Отправляем запрос на изменение цвета для конкретного пикселя
           await apiService.pixelApi.changePixelColor(
             pixelNumber,
             selectedColor.red,
@@ -158,17 +161,24 @@ class VoiceCommandHandler {
             selectedColor.blue,
           );
 
-          // Прерываем дальнейшую обработку
           return;
+        } else {
+          if (kDebugMode) {
+            print("❌ Invalid color: $colorName.");
+          }
         }
       } else {
         if (kDebugMode) {
-          print("❌ Invalid pixel number or color.");
+          print("❌ Invalid pixel number: $pixelNumber.");
         }
+      }
+    } else {
+      if (kDebugMode) {
+        print("❌ Pixel match not found. Trying general color change.");
       }
     }
 
-// Если команда не распознана как пиксель, продолжаем обработку как общий цвет
+// Обработка общего изменения цвета
     for (var entry in colorMap.entries) {
       if (command.contains(entry.key)) {
         if (kDebugMode) {
@@ -178,8 +188,6 @@ class VoiceCommandHandler {
         return;
       }
     }
-
-
     //
     // for (var entry in colorMap.entries) {
     //   if (command.contains(entry.key)) {

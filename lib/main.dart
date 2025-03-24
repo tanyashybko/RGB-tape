@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
             initialRoute: '/home',
             routes: {
               '/login': (context) => const LoginScreen(),
-              '/home': (context) => const HomePageScreen(),
+              '/home': (context) => HomePageScreen(onLanguageChange: provider.setLocale),
               '/control': (context) => const MainControlScreen(),
             },
           );
