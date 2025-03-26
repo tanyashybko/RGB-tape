@@ -7,11 +7,12 @@ import 'package:rgb_tape/l10n/l10n.dart';
 class VoiceCommandHandler {
   final ApiService apiService;
   final VoiceApi voiceApi;
-  final VoidCallback onEnable;
-  final VoidCallback onDisable;
-  final Function(Color) onColorChange;
-  final Function(double) onBrightnessChange;
-  final Function(int) onEffectChange;
+  final void Function() onEnable;
+  final void Function() onDisable;
+  final void Function(Color) onColorChange;
+  final void Function(double) onBrightnessChange;
+  final void Function(int) onEffectChange;
+  final void Function(int, Color) onPixelChange;
   final VoidCallback onLogout;
 
   bool isListening = false;
@@ -24,6 +25,7 @@ class VoiceCommandHandler {
     required this.onColorChange,
     required this.onBrightnessChange,
     required this.onEffectChange,
+    required this.onPixelChange,
     required this.onLogout,
   });
 
@@ -124,80 +126,82 @@ class VoiceCommandHandler {
       context.l10n.numTwentySecond.toLowerCase(): 22,
     };
 
-    final pixelMatch = RegExp(
-      r'\b(первый|второй|третий|четвёртый|пятый|шестой|седьмой|восьмой|девятый|десятый|одиннадцатый|двенадцатый|тринадцатый|четырнадцатый|пятнадцатый|шестнадцатый|семнадцатый|восемнадцатый|девятнадцатый|двадцатый|двадцать\s*первый|двадцать\s*второй)\s*(пиксель|pixel)\s*(' + colorMap.keys.map((key) => RegExp.escape(key)).join('|') + r')\b',
-      caseSensitive: false,
-    ).firstMatch(command);
+    String normalizeCommand(String command) {
+      return command.replaceAll('ё', 'е');
+    }
 
-    if (pixelMatch != null) {
-      if (kDebugMode) {
-        print("✅ Pixel match found: ${pixelMatch.group(0)}");
-      }
+    String normalizedCommand = normalizeCommand(command);
 
-      final pixelOrdinalString = pixelMatch.group(1)?.toLowerCase() ?? '';
-      final pixelNumber = numberWords.entries.firstWhere(
-            (e) => e.key == pixelOrdinalString,
-        orElse: () => const MapEntry("", 0),
-      ).value;
-      final colorName = pixelMatch.group(3)?.toLowerCase();
+    print("Normalized command: $normalizedCommand");
 
-      if (kDebugMode) {
-        print("Detected pixel number: $pixelNumber, color: $colorName");
-      }
+    RegExp pixelPattern = RegExp(
+      r'(' + numberWords.keys.join(r'|') + r')\s*(пиксель|pixel)\s*(' +
+          r'(красный|зелёный|синий|жёлтый|белый|фиолетовый|оранжевый|розовый|голубой|пурпурный|cyan|magenta|blue|yellow|white|red|green|blue)' +
+          r')',
+    );
 
-      if (pixelNumber != 0) {
-        final selectedColor = colorMap[colorName];
+    if (pixelPattern.hasMatch(normalizedCommand)) {
+      final pixelMatch = pixelPattern.firstMatch(normalizedCommand);
+      if (pixelMatch != null) {
+        String pixelWord = pixelMatch.group(1)!.toLowerCase();
+        int pixelNumber = numberWords[pixelWord]!;
+        String color = pixelMatch.group(3)!.toLowerCase();
 
-        if (selectedColor != null) {
+        if (colorMap.containsKey(color)) {
           if (kDebugMode) {
-            print("🎨 Command recognized: Change pixel $pixelNumber to $colorName");
-            print("📡 Sending request to /pixel");
+            print("Command recognized: Set pixel $pixelNumber to ${colorMap[color]}");
           }
-
-          await apiService.pixelApi.changePixelColor(
-            pixelNumber,
-            selectedColor.red,
-            selectedColor.green,
-            selectedColor.blue,
-          );
-
+          onPixelChange(pixelNumber, colorMap[color]!);
           return;
         } else {
           if (kDebugMode) {
-            print("❌ Invalid color: $colorName.");
+            print("Unrecognized color: $color");
           }
         }
-      } else {
-        if (kDebugMode) {
-          print("❌ Invalid pixel number: $pixelNumber.");
-        }
-      }
-    } else {
-      if (kDebugMode) {
-        print("❌ Pixel match not found. Trying general color change.");
       }
     }
 
-// Обработка общего изменения цвета
+    if (kDebugMode) {
+      print("Pixel command not matched in '$command'");
+    }
+
+    // final generalColorMatch = RegExp(
+    //       r'\b(' + colorMap.keys.map(RegExp.escape).join('|') + r')\b',
+    //       caseSensitive: false,
+    //     ).firstMatch(command);
+    //
+    //     if (generalColorMatch != null) {
+    //       final colorName = generalColorMatch.group(1)?.toLowerCase();
+    //       final selectedColor = colorMap[colorName];
+    //
+    //       if (selectedColor != null) {
+    //         if (kDebugMode) {
+    //           print("✅ General color change recognized: $colorName");
+    //           print("📡 Sending request to /color");
+    //         }
+    //
+    //         await apiService.changeColor(
+    //           selectedColor.red,
+    //           selectedColor.green,
+    //           selectedColor.blue,
+    //         );
+    //       } else {
+    //         if (kDebugMode) {
+    //           print("❌ Invalid general color: $colorName");
+    //         }
+    //       }
+    //     }
+    //   }
+
     for (var entry in colorMap.entries) {
       if (command.contains(entry.key)) {
         if (kDebugMode) {
-          print("🟢 General color change: ${entry.key}");
+          print("Command recognized: Change color to ${entry.key}");
         }
         onColorChange(entry.value);
         return;
       }
     }
-    //
-    // for (var entry in colorMap.entries) {
-    //   if (command.contains(entry.key)) {
-    //     if (kDebugMode) {
-    //       print("Command recognized: Change color to ${entry.key}");
-    //     }
-    //     onColorChange(entry.value);
-    //     return;
-    //   }
-    // }
 
     final Map<String, int> effectWords = {
       context.l10n.numOne: 1,

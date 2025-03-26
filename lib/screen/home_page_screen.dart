@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:rgb_tape/l10n/l10n.dart';
-import 'package:rgb_tape/localization/locale_provider.dart';
 import 'login_screen.dart';
 import 'main_control_screen.dart';
 

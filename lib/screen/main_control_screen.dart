@@ -55,6 +55,7 @@ class _MainControlScreenState extends State<MainControlScreen> {
       onColorChange: _handleColorChange,
       onBrightnessChange: _handleBrightnessChange,
       onEffectChange: _handleEffectChange,
+      onPixelChange: _handlePixelColorChange,
       onLogout: _logout,
     );
 
@@ -107,6 +108,17 @@ class _MainControlScreenState extends State<MainControlScreen> {
       selectedEffect = effect;
     });
     apiService.applyEffect(selectedEffect);
+  }
+
+  void _handlePixelColorChange(int pixelNumber, Color color) {
+    setState(() {
+    });
+    apiService.pixelApi.changePixelColor(
+      pixelNumber,
+      color.red,
+      color.green,
+      color.blue,
+    );
   }
 
   @override
