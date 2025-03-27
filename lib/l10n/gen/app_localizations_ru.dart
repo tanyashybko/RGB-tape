@@ -429,70 +429,70 @@ class AppLocalizationsRu extends AppLocalizations {
   String get numOneHundred => 'сто';
 
   @override
-  String get numFirst => 'первая';
+  String get numFirst => 'первый';
 
   @override
-  String get numSecond => 'вторая';
+  String get numSecond => 'вторый';
 
   @override
-  String get numThird => 'третья';
+  String get numThird => 'третий';
 
   @override
-  String get numFourth => 'четвёртая';
+  String get numFourth => 'четвёртый';
 
   @override
-  String get numFifth => 'пятая';
+  String get numFifth => 'пятый';
 
   @override
-  String get numSixth => 'шестая';
+  String get numSixth => 'шестой';
 
   @override
-  String get numSeventh => 'седьмая';
+  String get numSeventh => 'седьмой';
 
   @override
-  String get numEighth => 'восьмая';
+  String get numEighth => 'восьмой';
 
   @override
-  String get numNinth => 'девятая';
+  String get numNinth => 'девятый';
 
   @override
-  String get numTenth => 'десятая';
+  String get numTenth => 'десятый';
 
   @override
-  String get numEleventh => 'одиннадцатая';
+  String get numEleventh => 'одиннадцатый';
 
   @override
-  String get numTwelfth => 'двенадцатая';
+  String get numTwelfth => 'двенадцатый';
 
   @override
-  String get numThirteenth => 'тринадцатая';
+  String get numThirteenth => 'тринадцатый';
 
   @override
-  String get numFourteenth => 'четырнадцатая';
+  String get numFourteenth => 'четырнадцатый';
 
   @override
-  String get numFifteenth => 'пятнадцатая';
+  String get numFifteenth => 'пятнадцатый';
 
   @override
-  String get numSixteenth => 'шестнадцатая';
+  String get numSixteenth => 'шестнадцатый';
 
   @override
-  String get numSeventeenth => 'семнадцатая';
+  String get numSeventeenth => 'семнадцатый';
 
   @override
-  String get numEighteenth => 'восемнадцатая';
+  String get numEighteenth => 'восемнадцатый';
 
   @override
-  String get numNineteenth => 'девятнадцатая';
+  String get numNineteenth => 'девятнадцатый';
 
   @override
-  String get numTwentieth => 'двадцатая';
+  String get numTwentieth => 'двадцатый';
 
   @override
-  String get numTwentyFirst => 'двадцать первая';
+  String get numTwentyFirst => 'двадцать первый';
 
   @override
-  String get numTwentySecond => 'двадцать вторая';
+  String get numTwentySecond => 'двадцать вторый';
 
   @override
   String get pixelRed => 'красная';

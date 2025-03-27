@@ -132,11 +132,13 @@ class VoiceCommandHandler {
 
     String normalizedCommand = normalizeCommand(command);
 
-    print("Normalized command: $normalizedCommand");
+    if (kDebugMode) {
+      print("Normalized command: $normalizedCommand");
+    }
 
     RegExp pixelPattern = RegExp(
       r'(' + numberWords.keys.join(r'|') + r')\s*(пиксель|pixel)\s*(' +
-          r'(красный|зелёный|синий|жёлтый|белый|фиолетовый|оранжевый|розовый|голубой|пурпурный|cyan|magenta|blue|yellow|white|red|green|blue)' +
+          r'(красный|зелёный|синий|жёлтый|белый|red|green|blue|yellow|white)' +
           r')',
     );
 
